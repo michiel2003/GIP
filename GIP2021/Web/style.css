@@ -1,0 +1,25 @@
+﻿body
+{
+}
+
+.imageList{
+    margin:0px;
+    list-style-type:none;
+    padding: 5px;
+}
+
+.iconImage{
+    margin:0px;
+    height:200px;
+    width:200px;
+}
+
+.imageListItem{
+    margin:0px;
+    display:inline;
+}
+
+.FlexBox{
+    display:flex;
+    flex-wrap:wrap;
+}

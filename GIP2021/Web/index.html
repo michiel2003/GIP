@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <title>Home</title>
+</head>
+<body>
+    <div id="app">
+        <div class="FlexBox">
+            <ul class="imageList" >
+                <li class="imageListItem" v-for="url in urls">
+                        <img class="iconImage" :src=url v-on:click=download(url)>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="Script.js"></script>
+</body>
+</html>
