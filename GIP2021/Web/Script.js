@@ -4,13 +4,14 @@ new Vue({
     el: '#app',
     data() {
         return {
-            urls: []
+            urls: [],
         }
     },
     mounted() {
         axios
             .get("http://localhost:91/all/URL")
             .then(response => (this.urls = response.data))
+
     },
     methods: {
         download: function (urlget) {
@@ -29,7 +30,14 @@ new Vue({
                     link.click();
                     document.body.removeChild(link);
                 })
-        }
+        },
+        open: function (filepath) {
+            open(filepath)
+        },
+        openInedpth: function (filepath) {
+            console.log("test")
+            document.cookie = "image =" + filepath;
+        },
     }
 
 }) 

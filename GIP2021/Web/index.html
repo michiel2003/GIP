@@ -13,7 +13,7 @@
         <div class="FlexBox">
             <ul class="imageList" >
                 <li class="imageListItem" v-for="url in urls">
-                        <img class="iconImage" :src=url v-on:click=download(url)>
+                        <img v-on:click="openInedpth()" class="iconImage" :src=url>
                 </li>
             </ul>
         </div>
