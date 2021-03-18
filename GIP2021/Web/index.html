@@ -13,7 +13,9 @@
         <div class="FlexBox">
             <ul class="imageList" >
                 <li class="imageListItem" v-for="url in urls">
-                        <img v-on:click="openInedpth()" class="iconImage" :src=url>
+                    <a  v-on:click="openInedpth(url)">
+                        <img class="iconImage" :src=url>
+                    </a>
                 </li>
             </ul>
         </div>

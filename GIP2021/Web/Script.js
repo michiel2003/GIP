@@ -1,6 +1,6 @@
 // JavaScript source code
 
-new Vue({
+new Vue ({
     el: '#app',
     data() {
         return {
@@ -16,7 +16,7 @@ new Vue({
     methods: {
         download: function (urlget) {
             axios({
-                url: urlget,
+                url: "http://localhost:91/download?url=" + urlget,
                 method: 'GET',
                 responseType: 'blob'
             })
@@ -27,12 +27,11 @@ new Vue({
                     link.href = url;
                     link.setAttribute('download', 'image.jpg');
                     document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    link.click()
+                    console.log(url)
+                    link.remove 
                 })
-        },
-        open: function (filepath) {
-            open(filepath)
+                .catch(error => console.log('Authorization failed : ' + error.message));
         },
         openInedpth: function (filepath) {
             console.log("test")
@@ -40,4 +39,5 @@ new Vue({
         },
     }
 
-}) 
+})
+
