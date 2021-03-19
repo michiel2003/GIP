@@ -1,0 +1,14 @@
+﻿body
+{
+}
+
+
+
+.info{
+    display:flex;
+    flex-direction: row;
+}
+
+.column{
+    border: 2px solid black
+}

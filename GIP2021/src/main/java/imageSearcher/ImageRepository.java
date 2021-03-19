@@ -16,5 +16,4 @@ public interface ImageRepository extends CrudRepository<Image, Integer>{
 	
 	@Query(value= "select Image.imageURL from Image where Image.imageURL like %?1% limit 1", nativeQuery = true)
 	String findByUrl(@Param("URL") String URL);
-
 }
