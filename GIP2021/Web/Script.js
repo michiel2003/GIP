@@ -11,6 +11,7 @@ new Vue ({
         axios
             .get("http://localhost:91/all/URL")
             .then(response => (this.urls = response.data))
+            .get("http://localhost:91/all")
 
     },
     methods: {
