@@ -13,4 +13,4 @@ drop table imagetag;
 drop table tags;
 
 select * from imagetag;
-select * from imagetag join image on imagetag.imageid = image.id join tags on tags.id = imagetag.tagid where image.imageurl like "tester";
+select imageid, tagid, image.id as "imgid", image.imageurl, tags.id, tags.tagname from imagetag join image on imagetag.imageid = image.id join tags on tags.id = imagetag.tagid where image.imageurl like "tester";
