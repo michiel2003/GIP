@@ -1,0 +1,6 @@
+pre 3/22/2021
+added functionality for a vue.js application to retrieve images from a database trough the use of a spring boot application
+
+3/22/2021
+added the option to add tags to the images in the database through a JPA generated many to many join table.
+added the option to retrieve tags from a specific image in the database through the use of a querry
