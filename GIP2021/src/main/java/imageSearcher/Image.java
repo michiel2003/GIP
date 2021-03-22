@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,7 +20,11 @@ public class Image {
 	
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
+	
+	@Column(name= "imageURL")
+	public String imageURL;
 
 
 	public Integer getId() {
@@ -42,19 +48,16 @@ public class Image {
 	}
 
 	public void setTags(List<Tag> tags) {
-		this.tags = tags;
+		this.tags.addAll(tags);
 	}
-
-	@Column(name= "imageURL")
-	public String imageURL;
 
 	@ManyToMany(cascade = {
 	        CascadeType.PERSIST,
 	        CascadeType.MERGE
 	    })
-	    @JoinTable(name = "image_tag",
-	        joinColumns = @JoinColumn(name = "image_id"),
-	        inverseJoinColumns = @JoinColumn(name = "tag_id")
+	    @JoinTable(name = "imagetag",
+	        joinColumns = @JoinColumn(name = "imageid"),
+	        inverseJoinColumns = @JoinColumn(name = "tagid")
 	    )
 	    private List<Tag> tags = new ArrayList<>();
 	

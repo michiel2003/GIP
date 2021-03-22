@@ -50,13 +50,13 @@ public class ImageController {
     }
     
     @GetMapping("/test")
-    public List<Tag> test() {
-    	List<Tag> taglist = new ArrayList<Tag>();
-    	taglist.add(new Tag("test2"));
-    	taglist.add(new Tag("test1"));
-    	Image image = new Image();
-    	image.setTags(taglist);
-    	return image.getTags();
+    public String test(@RequestParam String add,@RequestParam String URL) {
+    	Image img = imageRep.addTags(URL);
+    	List<Tag> testlist = new ArrayList<Tag>();
+    	testlist.add(new Tag(add));
+    	img.setTags(testlist);
+    	imageRep.save(img);
+    	return "done";
     }
 }
 
