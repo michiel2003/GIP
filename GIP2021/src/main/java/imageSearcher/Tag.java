@@ -34,6 +34,11 @@ public class Tag{
         this.tagName = name;
     }
     
+    public Tag(Integer id, String tagName) {
+    	this.TagId = id;
+    	this.tagName = tagName;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

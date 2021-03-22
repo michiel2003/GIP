@@ -1,7 +1,5 @@
 insert  into image (imageurl) values
-("U:/GIP michiel 2021/GIP/GIP2021/SampleImages/BlueSquare.png");
-
-delete from image where imageurl like "test2";
+("tester");
 
 create table image (id integer not null auto_increment, imageurl varchar(255), primary key (id));
 create table imagetag (imageid integer not null, tagid integer not null);
@@ -14,4 +12,5 @@ drop table image;
 drop table imagetag;
 drop table tags;
 
-select * from imagetag join tags on tagid where imageid like 1;
+select * from imagetag;
+select * from imagetag join image on imagetag.imageid = image.id join tags on tags.id = imagetag.tagid where image.imageurl like "tester";

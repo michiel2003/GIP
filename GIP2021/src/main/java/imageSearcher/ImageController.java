@@ -49,14 +49,28 @@ public class ImageController {
         imageResourceHttpRequestHandler.handleRequest(httpServletRequest, httpServletResponse);
     }
     
-    @GetMapping("/test")
+    @GetMapping("/add/tags")
     public String test(@RequestParam String add,@RequestParam String URL) {
     	Image img = imageRep.addTags(URL);
     	List<Tag> testlist = new ArrayList<Tag>();
+    	testlist.addAll(img.getTags());
     	testlist.add(new Tag(add));
+    	for(Tag a: img.getTags()) {
+    		System.out.println(a.tagName);
+    	}
     	img.setTags(testlist);
     	imageRep.save(img);
     	return "done";
+    }
+    
+    @GetMapping("/get/tags")
+    public Iterable<String> gettags(@RequestParam String URL){
+    	List<List<String>> a = imageRep.getTags(URL);
+    	List<String> b = new ArrayList<String>();
+    	for(List<String> c:a) {
+    		b.add(c.get(5));
+    	}
+    	return b;
     }
 }
 

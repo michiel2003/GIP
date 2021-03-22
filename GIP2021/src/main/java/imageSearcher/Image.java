@@ -48,7 +48,7 @@ public class Image {
 	}
 
 	public void setTags(List<Tag> tags) {
-		this.tags.addAll(tags);
+		this.tags = tags;
 	}
 
 	@ManyToMany(cascade = {
