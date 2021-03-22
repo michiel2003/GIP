@@ -17,7 +17,7 @@ public class Tag{
 	
 	@Id
 	@GeneratedValue
-	@Column(name="id");
+	@Column(name="id")
 	public Integer TagId;
 	
 
