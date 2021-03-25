@@ -1,7 +1,4 @@
-﻿body
-{
-}
-
+﻿
 
 
 .info{
@@ -9,6 +6,25 @@
     flex-direction: row;
 }
 
+.img{
+    margin:0px;
+    padding:0px;    
+    max-width:800px;
+}
+
 .column{
     border: 2px solid black
+}
+
+.taglist{
+    min-width:200px;
+    max-width: 200px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.tag{
+    margin:2px;
+    padding-right: 5px;
 }

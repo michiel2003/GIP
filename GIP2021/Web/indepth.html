@@ -11,18 +11,33 @@
 <body>
 
     <div id="app">
-    <div class="info">
-        <div class="image column">
-            <img :src=url />
-        </div>
-        <div class="column textinfo">
-            <p>Lorem Ipsum at dolor si met</p>
-        </div>
+        <div class="info">
+            <div class="image column">
+                <img class="img" :src=url />
+            </div>
+            <div class="column textinfo">
+                <br>
+                <span><b>Tags:</b></span>
+                <div class="taglist">
+                    <p v-on:click="select(i)" class="tag" v-for="(tag,i) in updatetag">{{tag}}</p>
+                </div>
+                <br />
+                <span><b>Add Tags:</b></span><br />
+                <input id="newtagtext" type="text" placeholder="new tag"/>
+                <button v-on:click="addTag()" type="button"> Add Tag</button>
+                <br />
+                <br />
+                <span><b>Selected Tag</b></span>
+                <p class="tag">{{selected}}</p>
+                <button v-on:click="deleteTag()" type="button">Delete selected tag</button>
+                <br><br>
+                <button onclick="window.close()">Back</button>
+            </div>
 
         </div>
 
     </div>
-    
+
     <script src="indepthScript.js"></script>
 </body>
 </html>

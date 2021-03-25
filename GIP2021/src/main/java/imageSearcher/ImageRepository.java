@@ -16,12 +16,12 @@ public interface ImageRepository extends CrudRepository<Image, Integer>{
 	@Query(value = "select Image.imageURL from Image", nativeQuery = true)
 	Iterable<String> findAllURL();
 	
-	@Query(value= "select Image.imageURL from Image where Image.imageURL like %?1% limit 1", nativeQuery = true)
-	String findByUrl(@Param("URL") String URL);
-	
 	@Query(value= "select * from Image where Image.imageURL like %?1% limit 1", nativeQuery = true)
-	Image addTags(@Param("URL") String URL);
+	Image getImageByUrl(@Param("URL") String URL);
 	
 	@Query(value = "select imageid, tagid, image.id as \"imgid\", image.imageurl, tags.id, tags.tagname from imagetag join image on imagetag.imageid = image.id join tags on tags.id = imagetag.tagid where image.imageurl like %?1%", nativeQuery = true)
 	List<List<String>> getTags(@Param("URL") String URL);
+	
+	@Query(value = "select distinct image.imageurl from imagetag join tags on imagetag.tagid = tags.id join image on imagetag.imageid = image.id where tags.tagname like %?1%", nativeQuery = true)
+	List<String> ImageTagSearch(@Param("SearchTerm") String SearchTerm);
 }

@@ -10,9 +10,14 @@
 </head>
 <body>
     <div id="app">
+        <input type="text" placeholder="Search" v-model="searchString">
+        <select v-model="selectedSearch" name="searchOn" id="searchSelector">
+            <option selected="selected" value="" disabled>-Select-</option>
+            <option value="Tag">Tag</option>
+        </select>
         <div class="FlexBox">
             <ul class="imageList" >
-                <li class="imageListItem" v-for="url in urls">
+                <li class="imageListItem" v-for="url in Search">
                     <a  v-on:click="openInedpth(url)">
                         <img class="iconImage" :src=url>
                     </a>

@@ -18,27 +18,29 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class ImageController {
+public class Controller {
 	
+	//Adding image repository
 	@Autowired
 	private ImageRepository imageRep;
 	
+	//Adding author repository
+	@Autowired
+	private AuthorRep authrep;
+	
+	//Get all images
 	@GetMapping(path="/all")
 	public Iterable<Image> index() {
 		return imageRep.findAll();
 	}
 	
+	//Get all image URLS
 	@GetMapping(path = "/all/URL")
 	public Iterable<String> AllUrl() {
 		return imageRep.findAllURL();
 	}
 	
-	@GetMapping(path ="/search/URL")
-	public String searchURL(@RequestParam String Url){
-		return imageRep.findByUrl(Url);
-	}
-	
-	
+	//Enable the image to be forwarded on the localhost
 	@Resource
     private ImageResourceHttpRequestHandler imageResourceHttpRequestHandler;
     @GetMapping("/download")
@@ -49,9 +51,10 @@ public class ImageController {
         imageResourceHttpRequestHandler.handleRequest(httpServletRequest, httpServletResponse);
     }
     
+    //Adding tags
     @GetMapping("/add/tags")
-    public String test(@RequestParam String add,@RequestParam String URL) {
-    	Image img = imageRep.addTags(URL);
+    public String addTags(@RequestParam String add,@RequestParam String URL) {
+    	Image img = imageRep.getImageByUrl(URL);
     	List<Tag> testlist = new ArrayList<Tag>();
     	testlist.addAll(img.getTags());
     	testlist.add(new Tag(add));
@@ -63,6 +66,14 @@ public class ImageController {
     	return "done";
     }
     
+    //Adding authors
+    @GetMapping("/add/author")
+    public void createAuthor(@RequestParam String AuthName) {
+    	Author author = new Author(AuthName);
+    	authrep.save(author);
+    }
+    
+    //Retrieving tags from a specific image
     @GetMapping("/get/tags")
     public Iterable<String> gettags(@RequestParam String URL){
     	List<List<String>> a = imageRep.getTags(URL);
@@ -72,5 +83,38 @@ public class ImageController {
     	}
     	return b;
     }
+    
+    //Delete a specific tag from a specific image
+    @GetMapping("/delete/tag")
+    public String delete(@RequestParam String URL, @RequestParam int index) {
+    	Image img = imageRep.getImageByUrl(URL);
+    	List<Tag> tags = new ArrayList<Tag>();
+    	tags.addAll(img.getTags());
+    	tags.remove(index);
+    	img.setTags(tags);
+    	imageRep.save(img);
+    	return "done";
+    }
+    
+    //Get all images with a specific tag
+    @GetMapping("/search/bytag")
+    public List<String> Stag(@RequestParam String s){
+    	return imageRep.ImageTagSearch(s);
+    }
+    
+    @GetMapping("/add/authtoimg")
+    public void addAuthorToImage(@RequestParam String URL, @RequestParam String authorName) {
+    	
+    	Author auth = authrep.findAuthByName(authorName);
+    	if(auth == null) {
+    		auth = new Author(authorName);
+    		authrep.save(auth);
+    	}
+    	Image img = imageRep.getImageByUrl(URL);
+    	img.author = auth;
+    	imageRep.save(img);
+    }
+    
+    
 }
 

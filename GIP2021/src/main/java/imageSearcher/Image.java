@@ -6,12 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -61,6 +63,10 @@ public class Image {
 	    )
 	    private List<Tag> tags = new ArrayList<>();
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "authors.author_id")
+	public Author author;
+	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,4 +78,5 @@ public class Image {
     public int hashCode() {
         return getClass().hashCode();
     }
+    
 }

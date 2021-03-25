@@ -5,40 +5,40 @@ new Vue ({
     data() {
         return {
             urls: [],
+            searchString: "",
+            selectedSearch:""
         }
     },
     mounted() {
         axios
-            .get("http://localhost:91/all/URL")
+            .get("http://localhost:91/search/bytag?s=" + this.searchString)
             .then(response => (this.urls = response.data))
-            .get("http://localhost:91/all")
+            .catch(error => console.log("image not found"))
 
     },
     methods: {
-        download: function (urlget) {
-            axios({
-                url: "http://localhost:91/download?url=" + urlget,
-                method: 'GET',
-                responseType: 'blob'
-            })
-                .then((response) => {
-                    const url = window.URL
-                        .createObjectURL(new Blob([response.data]));
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', 'image.jpg');
-                    document.body.appendChild(link);
-                    link.click()
-                    console.log(url)
-                    link.remove 
-                })
-                .catch(error => console.log('Authorization failed : ' + error.message));
-        },
         openInedpth: function (filepath) {
             console.log("test")
             sessionStorage.setItem("url", filepath)
             open("indepth.html")
         },
+    },
+    computed:{
+        Search: function(){
+            if(this.searchString == "" || this.selectedSearch == ""){
+                axios
+                .get("http://localhost:91/all/URL")
+                .then(response => (this.urls = response.data))
+                .catch(error => console.log("image not found"))
+                return this.urls
+            }
+                if(this.selectedSearch == "Tag"){
+                axios.get("http://localhost:91/search/bytag?s=" + this.searchString)
+                .then(response => (this.urls = response.data))
+                .catch(error => console.log("image not found"))
+                return this.urls
+            }
+        }
     }
 
 })
