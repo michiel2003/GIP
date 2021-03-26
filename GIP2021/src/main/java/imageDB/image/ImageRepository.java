@@ -1,4 +1,4 @@
-package imageSearcher;
+package imageDB.image;
 
 import java.util.List;
 
@@ -22,6 +22,10 @@ public interface ImageRepository extends CrudRepository<Image, Integer>{
 	@Query(value = "select imageid, tagid, image.id as \"imgid\", image.imageurl, tags.id, tags.tagname from imagetag join image on imagetag.imageid = image.id join tags on tags.id = imagetag.tagid where image.imageurl like %?1%", nativeQuery = true)
 	List<List<String>> getTags(@Param("URL") String URL);
 	
+	//search query's
 	@Query(value = "select distinct image.imageurl from imagetag join tags on imagetag.tagid = tags.id join image on imagetag.imageid = image.id where tags.tagname like %?1%", nativeQuery = true)
 	List<String> ImageTagSearch(@Param("SearchTerm") String SearchTerm);
+	
+	@Query(value = "select distinct image.imageurl from authors join image on authors.author_id = image.authors_author_id where authors.author_name like %?1%", nativeQuery = true)
+	List<String> ImageAuthorSearch(@Param("SearchTerm") String SearchTerm);
 }

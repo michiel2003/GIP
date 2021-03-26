@@ -23,13 +23,20 @@
                 </div>
                 <br />
                 <span><b>Add Tags:</b></span><br />
-                <input id="newtagtext" type="text" placeholder="new tag"/>
+                <input v-model="TagText" type="text" placeholder="new tag"/>
                 <button v-on:click="addTag()" type="button"> Add Tag</button>
                 <br />
                 <br />
                 <span><b>Selected Tag</b></span>
                 <p class="tag">{{selected}}</p>
                 <button v-on:click="deleteTag()" type="button">Delete selected tag</button>
+                <br><br>
+                <span><b>Author of image: </b></span>
+                <p class="infoText" v-for="authorname in getAuthor">{{authorname}}</p>
+                <br>
+                <span><b>Add author to image</b></span><br>
+                <input v-model="AuthorText" type="text" placeholder="Author"><br>
+                <button v-on:click="addAuthor">Add author to this image</button>
                 <br><br>
                 <button onclick="window.close()">Back</button>
             </div>

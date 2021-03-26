@@ -1,4 +1,4 @@
-package imageSearcher;
+package imageDB.image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import imageDB.authors.Author;
+import imageDB.tags.Tag;
 
 @Entity
 @Table(name = "image")		

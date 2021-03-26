@@ -4,10 +4,15 @@ new Vue({
     data() {
         return {
             url: "",
+
             tags: [],
             index: 0,
+            author:[],
+            TagText:"",
+
             selected: "No selection",
-            selectTF: false
+            selectTF: false,
+            AuthorText:"",
         }
     },
     mounted() {
@@ -23,10 +28,9 @@ new Vue({
 
     methods: {
         addTag: function () {
-            var newtag = document.getElementById("newtagtext").value
-            axios.get("http://localhost:91/add/tags?add=" + newtag + "&URL=" + this.url)
+            axios.get("http://localhost:91/add/tags?add=" + this.TagText + "&URL=" + this.url)
                 .then(response => (console.log(response.data)))
-            document.getElementById("newtagtext").value = ""
+            this.TagText = ""
         },
         select: function (i) {
             this.index = i
@@ -39,13 +43,28 @@ new Vue({
                 this.selected = "No selection"
                 this.selectTF = false
             }
-        }
+        },
+
+        addAuthor: function(){
+            axios.get("http://localhost:91/add/authtoimg?URL=" + this.url + "&authorName=" + this.AuthorText)
+            console.log("http://localhost:91/add/authtoimg?URL=" + this.url + "&authorName=" + this.AuthorText)
+            this.AuthorText = ""
+        },
+        
+
     },
     computed: {
         updatetag: function () {
             axios.get("http://localhost:91/get/tags?URL=" + this.url)
                 .then(response => (this.tags = response.data))
             return this.tags
+        },
+        getAuthor: function(){
+            axios.get("http://localhost:91/get/authorByImageURL?URL=" + this.url)
+            .then(response => {
+                this.author = [""]
+                this.author.push(response.data)})
+            return this.author
         }
     }
 })

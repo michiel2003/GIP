@@ -10,10 +10,6 @@ new Vue ({
         }
     },
     mounted() {
-        axios
-            .get("http://localhost:91/search/bytag?s=" + this.searchString)
-            .then(response => (this.urls = response.data))
-            .catch(error => console.log("image not found"))
 
     },
     methods: {
@@ -29,13 +25,17 @@ new Vue ({
                 axios
                 .get("http://localhost:91/all/URL")
                 .then(response => (this.urls = response.data))
-                .catch(error => console.log("image not found"))
                 return this.urls
             }
-                if(this.selectedSearch == "Tag"){
+            if(this.selectedSearch == "Tag"){
                 axios.get("http://localhost:91/search/bytag?s=" + this.searchString)
                 .then(response => (this.urls = response.data))
-                .catch(error => console.log("image not found"))
+                return this.urls
+            }
+            if(this.selectedSearch == "Author"){
+                axios
+                .get("http://localhost:91/search/byAuthor?s=" + this.searchString)
+                .then(response => (this.urls = response.data))
                 return this.urls
             }
         }
