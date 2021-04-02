@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import imageDB.authors.Author;
+import imageDB.location.Location;
 import imageDB.tags.Tag;
 
 @Entity
@@ -69,6 +70,10 @@ public class Image {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "authors.author_id")
 	public Author author;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "locations.location_id")
+	public Location location;
 	
 	@Override
     public boolean equals(Object o) {

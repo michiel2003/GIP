@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ImageRepository extends CrudRepository<Image, Integer>{
+public interface ImageRep extends CrudRepository<Image, Integer>{
 	
 	@Query(value = "select * from Image", nativeQuery = true)
 	Iterable<Image> findAll();

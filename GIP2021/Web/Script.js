@@ -23,18 +23,18 @@ new Vue ({
         Search: function(){
             if(this.searchString == "" || this.selectedSearch == ""){
                 axios
-                .get("http://localhost:91/all/URL")
+                .get("http://localhost:91/get/URL")
                 .then(response => (this.urls = response.data))
                 return this.urls
             }
             if(this.selectedSearch == "Tag"){
-                axios.get("http://localhost:91/search/bytag?s=" + this.searchString)
+                axios.get("http://localhost:91/get/bytag?s=" + this.searchString)
                 .then(response => (this.urls = response.data))
                 return this.urls
             }
             if(this.selectedSearch == "Author"){
                 axios
-                .get("http://localhost:91/search/byAuthor?s=" + this.searchString)
+                .get("http://localhost:91/get/byAuthor?s=" + this.searchString)
                 .then(response => (this.urls = response.data))
                 return this.urls
             }
