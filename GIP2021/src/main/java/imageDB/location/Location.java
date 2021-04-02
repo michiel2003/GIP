@@ -31,6 +31,18 @@ public class Location {
 	private List<Image> images = new ArrayList<Image>();
 
 	
+	//Location constructors
+	
+	public Location(String LocationName) {
+		this.locationName = LocationName;
+	}
+	
+	//adding default constructor
+	public Location() {}
+	
+	
+	//end of construcotrs
+	
 	public Integer getLocationID() {
 		return locationID;
 	}

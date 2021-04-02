@@ -46,8 +46,8 @@ new Vue({
         },
 
         addAuthor: function(){
-            axios.get("http://localhost:91/add/authtoimg?URL=" + this.url + "&authorName=" + this.AuthorText)
-            console.log("http://localhost:91/add/authtoimg?URL=" + this.url + "&authorName=" + this.AuthorText)
+            axios.get("http://localhost:91/add/AuthorToImage?URL=" + this.url + "&authorName=" + this.AuthorText)
+            console.log("http://localhost:91/add/AuthorToImage?URL=" + this.url + "&authorName=" + this.AuthorText)
             this.AuthorText = ""
         },
         

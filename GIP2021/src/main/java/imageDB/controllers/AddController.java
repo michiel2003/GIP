@@ -10,6 +10,8 @@ import imageDB.authors.Author;
 import imageDB.authors.AuthorRep;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
+import imageDB.location.Location;
+import imageDB.location.LocationRep;
 import imageDB.tags.Tag;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,10 @@ public class AddController {
 	// Adding author repository
 	@Autowired
 	private AuthorRep authrep;
+	
+	//Adding location repository
+	@Autowired
+	private LocationRep locrep;
 
 	// Adding tags
 	@GetMapping("/add/tags")
@@ -43,21 +49,34 @@ public class AddController {
 
 	// Adding authors
 	@GetMapping("/add/author")
-	public void createAuthor(@RequestParam String AuthName) {
+	public Author createAuthor(@RequestParam String AuthName) {
 		Author author = new Author(AuthName);
 		authrep.save(author);
+		return author;
 	}
 
-	@GetMapping("/add/authtoimg")
+	@GetMapping("/add/AuthorToImage")
 	public void addAuthorToImage(@RequestParam String URL, @RequestParam String authorName) {
 
 		Author auth = authrep.findAuthByName(authorName);
 		if (auth == null) {
-			auth = new Author(authorName);
-			authrep.save(auth);
+			auth = createAuthor(authorName);
 		}
 		Image img = imageRep.getImageByUrl(URL);
 		img.author = auth;
+		imageRep.save(img);
+	}
+	
+	@GetMapping("/add/locationToImage")
+	public void addLocationToImage(@RequestParam String URL, @RequestParam String LocationName) {
+		
+		Location location = locrep.findLocationByName(LocationName);
+		if(location == null) {
+			location = new Location(LocationName);
+			locrep.save(location);
+		}
+		Image img = imageRep.getImageByUrl(URL);
+		img.location = location;
 		imageRep.save(img);
 	}
 
