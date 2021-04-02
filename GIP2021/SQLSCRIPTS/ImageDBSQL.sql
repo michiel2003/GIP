@@ -30,8 +30,8 @@ select distinct image.imageurl from imagetag join tags on imagetag.tagid = tags.
 
 select * from authors where author_name like "joske" limit 1;
 
-select author_name from authors join image on author_id = image.authors_author_id where image.imageurl like "tester"
+select author_name from authors join image on author_id = image.authors_author_id where image.imageurl like "joske"
 
-select author_name from authors join image on author_id = image.authors_author_id where image.imageurl like "tester" limit 1
+select author_name from authors join image on author_id = image.authors_author_id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/BlueSquare.png" limit 1
 
 select distinct image.imageurl from authors join image on authors.author_id = image.authors_author_id where authors.author_name like "Joske";
