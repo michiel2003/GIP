@@ -46,3 +46,9 @@ select author_name from authors join image on author_id = image.authors_author_i
 select distinct image.imageurl from authors join image on authors.author_id = image.authors_author_id where authors.author_name like "Joske";
 
 select distinct image.imageurl from authors join image on authors.author_id = image.authors_author_id where authors.author_name like "Joske";
+
+select * from locations;
+
+insert into locations (location_name) values ("Mol");
+
+select * from locations where location_name like "mol"
