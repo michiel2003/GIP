@@ -13,6 +13,8 @@ import imageDB.image.ImageRep;
 import imageDB.location.Location;
 import imageDB.location.LocationRep;
 import imageDB.tags.Tag;
+import imageDB.tags.TagRep;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +33,21 @@ public class AddController {
 	//Adding location repository
 	@Autowired
 	private LocationRep locrep;
+	
+	//Adding tag repository
+	@Autowired TagRep tagrep;
 
 	// Adding tags
 	@GetMapping("/add/tags")
 	public String addTags(@RequestParam String add, @RequestParam String URL) {
+		Tag tag = tagrep.findTagByName(add);
+		if(tag == null) {
+			tag = new Tag(add);
+		}
 		Image img = imageRep.getImageByUrl(URL);
 		List<Tag> testlist = new ArrayList<Tag>();
 		testlist.addAll(img.getTags());
-		testlist.add(new Tag(add));
+		testlist.add(tag);
 		for (Tag a : img.getTags()) {
 			System.out.println(a.tagName);
 		}

@@ -52,3 +52,9 @@ select * from locations;
 insert into locations (location_name) values ("Mol");
 
 select * from locations where location_name like "mol"
+
+select distinct image.id, image.imageurl, image.authors_author_id, image.locations_location_id from imagetag join tags on imagetag.tagid = tags.id join image on imagetag.imageid = image.id where tags.tagname like "lokok"
+
+select * from tags where tagname like "fff"
+
+delete from tags

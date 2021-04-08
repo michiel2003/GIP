@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
 import imageDB.tags.Tag;
+import imageDB.tags.TagRep;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +22,24 @@ public class DeleteController {
 	@Autowired
 	private ImageRep imageRep;
 	
+	@Autowired
+	private TagRep tagRep;
+	
 	//Delete a specific tag from a specific image
     @GetMapping("/delete/tag")
     public String delete(@RequestParam String URL, @RequestParam int index) {
     	Image img = imageRep.getImageByUrl(URL);
     	List<Tag> tags = new ArrayList<Tag>();
     	tags.addAll(img.getTags());
+    	
+    	List<Image> imageList = imageRep.ImageTagSearchFullImage(tags.get(index).tagName);
+    	System.out.println(imageList.size());
+    	
+    	if(imageList.size() <= 1) {
+    		tagRep.delete(tags.get(index));
+    	}
+    	
+    	
     	tags.remove(index);
     	img.setTags(tags);
     	imageRep.save(img);
