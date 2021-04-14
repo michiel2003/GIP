@@ -27,7 +27,7 @@ public class DeleteController {
 	
 	//Delete a specific tag from a specific image
     @GetMapping("/delete/tag")
-    public String delete(@RequestParam String URL, @RequestParam int index) {
+    public String deleteTag(@RequestParam String URL, @RequestParam int index) {
     	Image img = imageRep.getImageByUrl(URL);
     	List<Tag> tags = new ArrayList<Tag>();
     	tags.addAll(img.getTags());
@@ -44,6 +44,11 @@ public class DeleteController {
     	img.setTags(tags);
     	imageRep.save(img);
     	return "done";
+    }
+    
+    @GetMapping("/delete/Image/NoLongerInFolder")
+    public void deleteImage() {
+    	
     }
     
     

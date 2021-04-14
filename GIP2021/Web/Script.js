@@ -10,7 +10,8 @@ new Vue ({
         }
     },
     mounted() {
-
+            axios.get("http://localhost:91/insert/fromPaths")
+            .then()
     },
     methods: {
         openInedpth: function (filepath) {
