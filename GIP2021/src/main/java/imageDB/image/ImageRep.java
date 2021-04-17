@@ -14,7 +14,7 @@ public interface ImageRep extends CrudRepository<Image, Integer> {
 	Iterable<Image> findAll();
 
 	@Query(value = "select Image.imageURL from Image", nativeQuery = true)
-	Iterable<String> findAllURL();
+	List<String> findAllURL();
 
 	@Query(value = "select * from Image where Image.imageURL like %?1% limit 1", nativeQuery = true)
 	Image getImageByUrl(@Param("URL") String URL);
