@@ -18,5 +18,8 @@ public interface AuthorRep extends CrudRepository<Author, Integer>{
 	
 	@Query(value = "select author_name from authors join image on author_id = image.authors_author_id where image.imageurl like %?1% limit 1", nativeQuery = true)
 	String getAuthorOnImageURL(@Param("URL") String URL);
+	
+	@Query(value = "select author_id, author_name, phone from authors", nativeQuery = true)
+	List<Author> allAuthors();
 
 }

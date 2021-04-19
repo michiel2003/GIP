@@ -26,6 +26,11 @@ public class Author {
 	@Column(name = "authorName")
 	public String authorName;
 	
+	@Column(name = "phone")
+	public String phone;
+	
+	@Column(name = "")
+	
 	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY, orphanRemoval = false)
 	public List<Image> images = new ArrayList<Image>();
 	

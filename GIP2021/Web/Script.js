@@ -11,14 +11,20 @@ new Vue ({
     },
     mounted() {
             axios.get("http://localhost:91/insert/fromPaths")
-            .then()
+            axios.get("http://localhost:91/delete/tag/noLongerConnectedToImage")
+            axios.get("http://localhost:91/delete/Image/NoLongerInFolder")
     },
     methods: {
         openInedpth: function (filepath) {
             console.log("test")
             sessionStorage.setItem("url", filepath)
             open("indepth.html")
+            window.close()
         },
+        openAuthors: function(){
+            open("authors.html")
+            window.close()
+        }
     },
     computed:{
         Search: function(){

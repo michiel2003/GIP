@@ -87,7 +87,33 @@ public class DeleteController {
     	for(String a: compared) {
     		Image imageToDelete = imageRep.getImageByUrl(a);
     		imageRep.delete(imageToDelete);
+    		System.out.println(imageToDelete.imageURL);
     	}
+    }
+    
+    @GetMapping("/delete/tag/noLongerConnectedToImage")
+    public void deleteTagNoLongerConnectedToImage(){
+    	List<String> allTagsFromDBList = new ArrayList<String>();
+    	allTagsFromDBList.addAll(tagRep.getAllTags());
+    	
+    	List<String> allTagsFromImages = new ArrayList<String>();
+    	for(Image img:imageRep.findAll()) {
+    		List<Tag> tagsFromImage = new ArrayList<Tag>();
+    		tagsFromImage.addAll(img.getTags());
+    		for(Tag tag:tagsFromImage) {
+    			allTagsFromImages.add(tag.tagName);
+    		}
+    	}
+    	
+    	List<String> notFound = new ArrayList<String>();
+    	
+    	notFound.addAll(compareToReturnNotFound(allTagsFromDBList, allTagsFromImages));
+    	for(String tagname: notFound) {
+    		Tag notFoundTag = tagRep.findTagByName(tagname);
+    		tagRep.delete(notFoundTag);
+    	}
+    	
+    	
     }
     
     public List<String> compareToReturnNotFound(List<String>compFrom, List<String>compTo) {
@@ -105,6 +131,8 @@ public class DeleteController {
     	}
     	return nonFound;
     }
+    
+    
     
     public static void main(String[] args) {
 		DeleteController exec = new DeleteController();

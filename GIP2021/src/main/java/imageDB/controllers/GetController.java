@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import imageDB.authors.Author;
 import imageDB.authors.AuthorRep;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
@@ -62,6 +63,20 @@ public class GetController {
 	@GetMapping("/get/byAuthor")
 	public List<String> sAuthor(@RequestParam String s) {
 		return imageRep.ImageAuthorSearch(s);
+	}
+	
+	@GetMapping("/all/Authors")
+	public List<List<String>> allAuthor(){
+		List<List<String>> authorList = new ArrayList<List<String>>();  
+		List<Author> authL = new ArrayList<Author>();
+		authL.addAll(authrep.allAuthors());
+		for(Author auth: authL) {
+			List<String> toAdd = new ArrayList<String>();
+			toAdd.add(auth.authorName);
+			toAdd.add(auth.phone);
+			authorList.add(toAdd);
+		}
+		return authorList;
 	}
 
 }

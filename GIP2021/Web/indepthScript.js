@@ -44,6 +44,10 @@ new Vue({
                 this.selectTF = false
             }
         },
+        closeWindow: function () {
+            open('index.html')
+            window.close()
+        },
 
         addAuthor: function(){
             axios.get("http://localhost:91/add/AuthorToImage?URL=" + this.url + "&authorName=" + this.AuthorText)
@@ -65,6 +69,6 @@ new Vue({
                 this.author = [""]
                 this.author.push(response.data)})
             return this.author
-        }
+        },
     }
 })
