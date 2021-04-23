@@ -1,14 +1,27 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
+
+  
+  .container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
     background-color: #2196F3;
     padding: 10px;
-  }
-  
-  .grid-container > div {
-    background-color: #2196F3;
-    text-align: center;
-    padding: 20px 0;
     font-size: 30px;
   }
+
+  .button{
+    min-width: 400px;
+    text-align: center;
+    border: 1px solid white;
+    margin-top: 10px;
+    cursor: pointer;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+html body{
+  padding: 0px;
+  margin: 0px;
+  overflow-y: auto;
+}

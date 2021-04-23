@@ -1,6 +1,7 @@
 package imageDB.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +75,8 @@ public class GetController {
 			List<String> toAdd = new ArrayList<String>();
 			toAdd.add(auth.authorName);
 			toAdd.add(auth.phone);
+			toAdd.add(auth.email);
+			toAdd.add(auth.lastName);
 			authorList.add(toAdd);
 		}
 		return authorList;

@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="IndepthStyle.css">
+    <meta charset="utf-8" />
+</head>
+
+<body>
+
+    <div id="app">
+
+        <p>{{auth[0]}}</p>
+        <input type="text" v-model="auth[0]">
+        <input type="text" v-model="auth[3]">
+        <br>
+        <p>contact info</p>
+        <input type="text" v-model="auth[2]">
+        <input type="text" v-model="auth[1]">
+        <br>
+        <br>
+        <button>save</button>
+
+    </div>
+
+
+    <script src="indepthAuthor.js"></script>
+</body>
+
+</html>

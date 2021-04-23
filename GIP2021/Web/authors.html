@@ -14,24 +14,11 @@
 
     <div id="app">
         <button type="button" v-on:click="closeWindow">Back to images</button>
-
-        <div class="grid-container">
-            <div class="grid-container">
-                <div class="item1">
-                    <div v-for="author in authors">
-                        <div v-for="">
-                            <p>{{phone}}</p>
-                        </div>
-                        <div v-for="auth in author">
-                            <p>{{auth}}</p>
-                        </div>
-                    </div>
+            <div class="container">
+                <div v-on:click="indepthAuthor(i)" class="button" v-for="(author, i) in authors">
+                    {{author[0]}} {{author[3]}}
                 </div>
-                <div class="item2">
-                    <p>an example image here</p>
-                </div>
-              </div>
-        </div>
+            </div>
 
     </div>
     <script src="authorScript.js"></script>

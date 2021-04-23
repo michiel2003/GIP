@@ -45,7 +45,7 @@ new Vue({
             }
         },
         closeWindow: function () {
-            open('index.html')
+            open(sessionStorage.getItem("LastPage"))
             window.close()
         },
 

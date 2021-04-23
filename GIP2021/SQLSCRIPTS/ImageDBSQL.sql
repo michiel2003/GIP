@@ -19,6 +19,9 @@ alter table image add constraint FKmav237bxr5b1y7u2wn4gdpql8 foreign key (locati
 alter table imagetag add constraint FKqf48l3tkdklv0vngrui15w4rf foreign key (tagid) references tags (id);
 alter table imagetag add constraint FKkdiyw8ygjwuj4hs53ge2qr74x foreign key (imageid) references image (id);
 
+alter table authors add email varchar(255);
+alter table authors add last_name varchar(255);
+
 drop table image;
 drop table imagetag;
 drop table tags;
@@ -56,8 +59,16 @@ delete from tags
 insert into filepath (path) values
 ("D:/GIP/GIP/GIP2021/SampleImages")
 
-delete from filepath where id = 2;	
+delete from filepath where id = 2;
+
+delete from authors where author_id = 5;
 
 select path from filepath;
 
 select author_id, author_name, phone from authors;
+
+select author_id, author_name, phone, email, last_name from authors;
+
+insert into authors(author_name, last_name,email, phone) values ("michiel", "de cap", "michieldecap@gmail.com", "0498163191")
+
+select * from authors where authors.author_name like "michiel" and authors.last_name like "de cap"

@@ -18,11 +18,13 @@ new Vue ({
         openInedpth: function (filepath) {
             console.log("test")
             sessionStorage.setItem("url", filepath)
+            sessionStorage.setItem('LastPage', "index.html")
             open("indepth.html")
             window.close()
         },
         openAuthors: function(){
             open("authors.html")
+            sessionStorage.setItem('LastPage', "authors.html")
             window.close()
         }
     },
