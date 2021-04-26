@@ -14,8 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import imageDB.IconCreator.Icon;
 import imageDB.authors.Author;
 import imageDB.location.Location;
 import imageDB.tags.Tag;
@@ -74,6 +76,10 @@ public class Image {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "locations.location_id")
 	public Location location;
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "icons.icon_id", nullable = true)
+	public Icon icon;
 	
 	@Override
     public boolean equals(Object o) {

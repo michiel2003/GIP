@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import imageDB.IconCreator.Icon;
+import imageDB.IconCreator.IconRep;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
@@ -28,6 +30,9 @@ public class InsertionController {
 
 	@Autowired
 	private PathRepository pathrep;
+	
+	@Autowired
+	private IconRep icrep;
 
 	private List<String> getPaths() {
 		return pathrep.allFilePaths();

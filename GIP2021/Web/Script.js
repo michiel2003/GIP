@@ -32,7 +32,7 @@ new Vue ({
         Search: function(){
             if(this.searchString == "" || this.selectedSearch == ""){
                 axios
-                .get("http://localhost:91/get/URL")
+                .get("http://localhost:91/icons/getIconURLS")
                 .then(response => (this.urls = response.data))
                 return this.urls
             }

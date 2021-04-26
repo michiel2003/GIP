@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import imageDB.IconCreator.Icon;
+
 @Repository
 public interface ImageRep extends CrudRepository<Image, Integer> {
 
@@ -31,4 +33,7 @@ public interface ImageRep extends CrudRepository<Image, Integer> {
 
 	@Query(value = "select distinct image.imageurl from authors join image on authors.author_id = image.authors_author_id where authors.author_name like %?1%", nativeQuery = true)
 	List<String> ImageAuthorSearch(@Param("SearchTerm") String SearchTerm);
+	
+	@Query(value = "select icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl like ?1", nativeQuery = true)
+	String ImageIconFinder(@Param("url") String url);
 }

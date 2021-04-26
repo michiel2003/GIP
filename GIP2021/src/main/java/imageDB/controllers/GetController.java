@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import imageDB.IconCreator.IconRep;
 import imageDB.authors.Author;
 import imageDB.authors.AuthorRep;
 import imageDB.image.Image;
@@ -26,6 +27,9 @@ public class GetController {
 	// Adding author repository
 	@Autowired
 	private AuthorRep authrep;
+	
+	@Autowired
+	public IconRep icrep;
 	
 	//Get all images
 		@GetMapping(path="/get/All")
@@ -47,7 +51,7 @@ public class GetController {
 	// Get all image URLS
 	@GetMapping(path = "/get/URL")
 	public Iterable<String> AllUrl() {
-		return imageRep.findAllURL();
+		return icrep.getAllIcons();
 	}
 
 	// Get all images with a specific tag
@@ -80,6 +84,11 @@ public class GetController {
 			authorList.add(toAdd);
 		}
 		return authorList;
+	}
+	
+	@GetMapping("/icons/getIconURLS")
+	public List<String> getIconURLS(){
+		return icrep.getAllIcons();
 	}
 
 }

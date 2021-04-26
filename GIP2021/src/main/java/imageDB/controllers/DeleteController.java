@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import imageDB.IconCreator.IconRep;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
@@ -16,9 +17,13 @@ import imageDB.tags.Tag;
 import imageDB.tags.TagRep;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.Icon;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -33,6 +38,9 @@ public class DeleteController {
 	
 	@Autowired
 	private PathRepository filerep;
+	
+	@Autowired
+	private IconRep icrep;
 	
 	//Delete a specific tag from a specific image
     @GetMapping("/delete/tag")
@@ -86,6 +94,14 @@ public class DeleteController {
     	}
     	for(String a: compared) {
     		Image imageToDelete = imageRep.getImageByUrl(a);
+    		imageDB.IconCreator.Icon icon= new imageDB.IconCreator.Icon(imageRep.ImageIconFinder(imageToDelete.imageURL));
+    		System.out.println(icon.iconURL);
+    		imageDB.IconCreator.Icon ExactIcon = icrep.getExactIcon(icon.iconURL);
+    		System.out.println(icrep.getExactIcon(imageRep.ImageIconFinder(imageToDelete.imageURL)));
+    		System.out.println(ExactIcon.iconURL);
+    		File f = new File(icon.iconURL);
+    		f.delete();
+    		icrep.delete(ExactIcon);
     		imageRep.delete(imageToDelete);
     		System.out.println(imageToDelete.imageURL);
     	}
@@ -132,11 +148,44 @@ public class DeleteController {
     	return nonFound;
     }
     
+    @GetMapping("delete/icon/noLongerInExplorer")
+    public void iconDelete() {
+    	File file = new File("DATA\\ICONS");
+    	String pathExplorer = file.getAbsolutePath().toString();
+    	List<String> iconsPathDB = new ArrayList<String>();
+    	iconsPathDB.addAll(icrep.getAllIcons());
+    	List<String> iconsPathExplorer = new ArrayList<String>();
+    	for(String path: new File(pathExplorer).list()) {
+    		iconsPathExplorer.add(file.getAbsolutePath().toString().replaceAll("\\\\", "/")+ "/" + path);
+    	}
+    	
+    	List<String> notFound = new ArrayList<String>();
+    	
+    	notFound.addAll(compareToReturnNotFound(iconsPathDB, iconsPathExplorer));
+    	for(String url: notFound) {
+    		imageDB.IconCreator.Icon notFoundIcon = icrep.getExactIcon(url);
+    		icrep.delete(notFoundIcon);
+    	}
+    }
+    
     
     
     public static void main(String[] args) {
-		DeleteController exec = new DeleteController();
-		exec.deleteImage();
+    	try {
+			System.out.println(Path.of(".").toRealPath().relativize(Path.of("U:\\\\GIP michiel 2021\\\\GIP\\\\GIP2021\\\\DATA\\\\ICONS").toRealPath()));
+			System.out.println(Path.of(".").toRealPath());
+			
+			File file = new File("DATA\\ICONS");
+			String[] files = file.list();
+			System.out.println("**" + file.getPath());
+			System.out.println(file.getAbsolutePath());
+			for(String a: files) {
+				System.out.println(a);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
     
     
