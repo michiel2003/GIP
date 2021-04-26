@@ -90,5 +90,10 @@ public class GetController {
 	public List<String> getIconURLS(){
 		return icrep.getAllIcons();
 	}
+	
+	@GetMapping("/get/indepth")
+	public String getIndepthFullScaleImage(@RequestParam String url) {
+		return icrep.IndepthImageFinder(url);
+	}
 
 }

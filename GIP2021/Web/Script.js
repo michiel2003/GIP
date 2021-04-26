@@ -6,13 +6,19 @@ new Vue ({
         return {
             urls: [],
             searchString: "",
-            selectedSearch:""
+            selectedSearch:"",
+            item:{
+                //...
+                image : null,
+                imageUrl: null
+            }
         }
     },
     mounted() {
             axios.get("http://localhost:91/insert/fromPaths")
             axios.get("http://localhost:91/delete/tag/noLongerConnectedToImage")
             axios.get("http://localhost:91/delete/Image/NoLongerInFolder")
+            axios.get("http://localhost:91/icons/generateIcons").then(response => (console.log(response.data)))
     },
     methods: {
         openInedpth: function (filepath) {
@@ -26,6 +32,14 @@ new Vue ({
             open("authors.html")
             sessionStorage.setItem('LastPage', "authors.html")
             window.close()
+        },
+        uploadImage: function(event){
+            const file = event.target.files[0]
+            this.image = file
+            this.item.imageUrl = URL.createObjectURL(file)
+            console.log(this.item.imageUrl)
+            console.log(this.item)
+            axios.get("http://localhost:91/upload/image?blobURI=" + this.item.imageUrl)
         }
     },
     computed:{

@@ -17,6 +17,7 @@
             <option value="Author">Author</option>
         </select>
         <button type="button" v-on:click="openAuthors">View Authors</button>
+        <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input">
         <div class="FlexBox">
             <ul class="imageList" >
                 <li class="imageListItem" v-for="url in Search">
@@ -27,6 +28,7 @@
             </ul>
         </div>
     </div>
+    
     <script src="Script.js"></script>
 </body>
 </html>

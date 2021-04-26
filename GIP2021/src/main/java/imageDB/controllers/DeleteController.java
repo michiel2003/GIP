@@ -172,7 +172,7 @@ public class DeleteController {
     
     public static void main(String[] args) {
     	try {
-			System.out.println(Path.of(".").toRealPath().relativize(Path.of("U:\\\\GIP michiel 2021\\\\GIP\\\\GIP2021\\\\DATA\\\\ICONS").toRealPath()));
+			System.out.println(Path.of(".").toRealPath().relativize(Path.of("D:\\GIP2021\\GIP\\GIP2021\\Web\\indepth.html").toRealPath()));
 			System.out.println(Path.of(".").toRealPath());
 			
 			File file = new File("DATA\\ICONS");

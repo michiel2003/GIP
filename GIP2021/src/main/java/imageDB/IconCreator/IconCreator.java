@@ -35,7 +35,7 @@ public class IconCreator {
 
 
 	@GetMapping("/icons/generateIcons")
-	public void createIco() {
+	public String createIco() {
 		List<String> imageURLS = new ArrayList<String>();
 		imageURLS.addAll(imgrep.findAllURL());
 		for(String url: imageURLS) {
@@ -59,9 +59,9 @@ public class IconCreator {
 					imgrep.save(image);
 				}
 				
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 			}
 		}
+		return "done";
 	}
 }

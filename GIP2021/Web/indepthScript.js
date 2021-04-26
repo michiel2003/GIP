@@ -15,15 +15,14 @@ new Vue({
             AuthorText:"",
         }
     },
-    mounted() {
-        this.url = sessionStorage.getItem("url")
-        console.log(this.url)
-        let urlgot = this.url
-        urlgot = urlgot.replaceAll(" ", "%20")
-        this.url = urlgot
+    beforeMount(){
+        axios.get("http://localhost:91/get/indepth?url=" + sessionStorage.getItem("url"))
+        .then(response => (this.url = response.data))
         console.log("http://localhost:91/get/tags?URL=" + this.url)
         axios.get("http://localhost:91/get/tags?URL=" + this.url)
-            .then(response => (this.tags = response.data))
+    },
+    mounted() {
+        
     },
 
     methods: {

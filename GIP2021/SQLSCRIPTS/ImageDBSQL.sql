@@ -62,7 +62,7 @@ select * from tags where tagname like "fff"
 delete from tags
 
 insert into filepath (path) values
-("U:/GIP michiel 2021/GIP/GIP2021/SampleImages")
+("D:/GIP2021/GIP/GIP2021/SampleImages")
 
 delete from filepath where id = 2;
 
@@ -85,3 +85,5 @@ select path from filepath;
 select * from icons where iconurl like "U:/GIP michiel 2021/GIP/GIP2021/DATA/ICONS/285A1fG5PCg.jpg";
 
 select icons.id, icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl = "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
+
+select image.imageurl from icons join image on icons.id = image.icons_icon_id where icons.iconurl like "D:/GIP2021/GIP/GIP2021/DATA/ICONS/43jZxErIEtE.jpg";

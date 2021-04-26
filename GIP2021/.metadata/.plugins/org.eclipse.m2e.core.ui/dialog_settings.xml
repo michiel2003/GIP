@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\GIP2021\GIP\GIP2021"/>
 			<item value="D:\GIP\GIP\GIP2021"/>
 		</list>
 		<list key="projectNameTemplate">
