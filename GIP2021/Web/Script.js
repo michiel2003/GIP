@@ -7,18 +7,10 @@ new Vue ({
             urls: [],
             searchString: "",
             selectedSearch:"",
-            item:{
-                //...
-                image : null,
-                imageUrl: null
-            }
         }
     },
     mounted() {
-            axios.get("http://localhost:91/insert/fromPaths")
-            axios.get("http://localhost:91/delete/tag/noLongerConnectedToImage")
-            axios.get("http://localhost:91/delete/Image/NoLongerInFolder")
-            axios.get("http://localhost:91/icons/generateIcons").then(response => (console.log(response.data)))
+            axios.get("http://localhost:91/start/app")
     },
     methods: {
         openInedpth: function (filepath) {
@@ -34,12 +26,15 @@ new Vue ({
             window.close()
         },
         uploadImage: function(event){
-            const file = event.target.files[0]
-            this.image = file
-            this.item.imageUrl = URL.createObjectURL(file)
-            console.log(this.item.imageUrl)
-            console.log(this.item)
-            axios.get("http://localhost:91/upload/image?blobURI=" + this.item.imageUrl)
+            console.log(event.target.files[0])
+            var file = event.target.files[0]
+            var formdata = new FormData()
+            console.log(file)
+            console.log(file.name)
+            formdata.append("name", file.name)
+            formdata.append("blob", file)
+            axios.post("http://localhost:91/upload/image", formdata, {headers:{'Content-Type':'multipart/form-data'}})
+            .then(response => (window.alert(response.data)))
         }
     },
     computed:{

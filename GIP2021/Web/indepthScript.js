@@ -53,6 +53,12 @@ new Vue({
             console.log("http://localhost:91/add/AuthorToImage?URL=" + this.url + "&authorName=" + this.AuthorText)
             this.AuthorText = ""
         },
+        delImage: function(){
+            axios.get("http://localhost:91/delete/image?url=" + this.url)
+            .then(response => (console.log(response.data)))
+            window.open("index.html")
+            window.close()
+        },
         
 
     },

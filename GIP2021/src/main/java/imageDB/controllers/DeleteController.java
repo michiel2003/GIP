@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import imageDB.IconCreator.Icon;
 import imageDB.IconCreator.IconRep;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
@@ -22,8 +23,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.swing.Icon;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -64,7 +63,7 @@ public class DeleteController {
     }
     
     @GetMapping("/delete/Image/NoLongerInFolder")
-    public void deleteImage() {
+    public void deleteImageNoLongerInFolder() {
     	List<String> allURLfromDB =new ArrayList<String>();
     	allURLfromDB.addAll(imageRep.findAllURL());
     	List<String> allURLfromFiles = new ArrayList<String>();
@@ -100,8 +99,11 @@ public class DeleteController {
     		System.out.println(icrep.getExactIcon(imageRep.ImageIconFinder(imageToDelete.imageURL)));
     		System.out.println(ExactIcon.iconURL);
     		File f = new File(icon.iconURL);
+    		System.out.println("deleted: " + f.getAbsolutePath());
     		f.delete();
+    		System.out.println("deleted: " + ExactIcon.iconURL);
     		icrep.delete(ExactIcon);
+    		System.out.println("deleted: " + imageToDelete.imageURL);
     		imageRep.delete(imageToDelete);
     		System.out.println(imageToDelete.imageURL);
     	}
@@ -187,6 +189,25 @@ public class DeleteController {
 			e.printStackTrace();
 		}
 	}
+    
+    @GetMapping("delete/image")
+    public String deleteImage(@RequestParam String url) {
+    	try {
+			Image todel = imageRep.getImageByUrl(url);
+			File imgFile = new File(todel.imageURL);
+			Icon icToDel = todel.icon;
+			File icoFile = new File(icToDel.iconURL);
+			imageRep.delete(todel);
+			icrep.delete(icToDel);
+			imgFile.delete();
+			icoFile.delete();
+			return "OK";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "ERR";
+		}
+    	
+    }
     
     
 }

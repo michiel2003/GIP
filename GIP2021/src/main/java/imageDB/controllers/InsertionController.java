@@ -37,7 +37,7 @@ public class InsertionController {
 
 	@Autowired
 	private PathRepository pathrep;
-	
+
 	@Autowired
 	private IconRep icrep;
 
@@ -63,7 +63,7 @@ public class InsertionController {
 				}
 			}
 		}
-		
+
 	}
 
 	private boolean CheckIfImage(String filepath) {

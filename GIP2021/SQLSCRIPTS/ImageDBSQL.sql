@@ -11,7 +11,7 @@ create table authors (author_id integer not null auto_increment, author_name var
 create table filepath (id integer not null auto_increment, path varchar(255), primary key (id));
 create table icons (id integer not null auto_increment, iconurl varchar(255), primary key (id));
 create table image (id integer not null auto_increment, imageurl varchar(255), authors_author_id integer, icons_icon_id integer, locations_location_id integer, primary key (id));
-create table imagetag (imageid integer not null, tagid integer not null);
+	create table imagetag (imageid integer not null, tagid integer not null);
 create table locations (locationid integer not null auto_increment, location_name varchar(255), primary key (locationid));
 create table tags (id integer not null auto_increment, tagname varchar(255), primary key (id));
 alter table image add constraint FK2xuct3mig97wbv0vlkpd34ovi foreign key (authors_author_id) references authors (author_id);
@@ -62,7 +62,7 @@ select * from tags where tagname like "fff"
 delete from tags
 
 insert into filepath (path) values
-("D:/GIP2021/GIP/GIP2021/SampleImages")
+("U:/GIP 2021 working/GIP/GIP2021/SampleImages")
 
 delete from filepath where id = 2;
 

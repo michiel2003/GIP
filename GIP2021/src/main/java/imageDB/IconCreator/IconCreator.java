@@ -48,11 +48,15 @@ public class IconCreator {
 					}
 				}
 				if(save == true) {
+					Icon icon = new Icon();
+					icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
+					icrep.save(icon);
+					image.icon = icon;
+					imgrep.save(image);
 					System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/"));
 					Thumbnails.of(new File(url))
 					.size(width, height).toFile(new File(Path.of(".").toRealPath() + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'))));
 					System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/')));
-					Icon icon = new Icon();
 					icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
 					icrep.save(icon);
 					image.icon = icon;
@@ -60,6 +64,7 @@ public class IconCreator {
 				}
 				
 			} catch (Exception e) {
+				return "fail";
 			}
 		}
 		return "done";
