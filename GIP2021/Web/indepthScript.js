@@ -16,13 +16,12 @@ new Vue({
         }
     },
     beforeMount(){
-        axios.get("http://localhost:91/get/indepth?url=" + sessionStorage.getItem("url"))
-        .then(response => (this.url = response.data))
-        console.log("http://localhost:91/get/tags?URL=" + this.url)
-        axios.get("http://localhost:91/get/tags?URL=" + this.url)
     },
     mounted() {
-        
+        axios.get("http://localhost:91/get/indepth?url=" + sessionStorage.getItem("url"))
+        .then(response => {this.url = response.data
+            console.log("http://localhost:91/get/tags?URL=" + this.url) 
+        })       
     },
 
     methods: {
@@ -55,8 +54,8 @@ new Vue({
         },
         delImage: function(){
             axios.get("http://localhost:91/delete/image?url=" + this.url)
-            .then(response => (console.log(response.data)))
-            window.open("index.html")
+            open("index.html")
+            window.close()
         },
         
 
