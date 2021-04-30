@@ -29,15 +29,19 @@ import java.util.List;
 @RestController
 public class StartController {
 	
+	@Autowired
 	DeleteController del;
+	@Autowired
 	AddController add;
+	@Autowired
 	InsertionController insert;
+	@Autowired
 	IconCreator crea;
 
 	@GetMapping("/start/app")
 	public void boot() {
 		insert.insertFromPaths();	
-		crea.createIco();
+		crea.threadICO();
 		del.deleteImageNoLongerInFolder();
 		del.deleteTagNoLongerConnectedToImage();
 	}

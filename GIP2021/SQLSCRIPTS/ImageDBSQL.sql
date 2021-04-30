@@ -87,3 +87,7 @@ select * from icons where iconurl like "U:/GIP michiel 2021/GIP/GIP2021/DATA/ICO
 select icons.id, icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl = "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
 
 select image.imageurl from icons join image on icons.id = image.icons_icon_id where icons.iconurl like "D:/GIP2021/GIP/GIP2021/DATA/ICONS/43jZxErIEtE.jpg";
+
+select icons.id, icons.iconurl from image join icons on icons.id = image.icons_icon_id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
+
+select icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg"

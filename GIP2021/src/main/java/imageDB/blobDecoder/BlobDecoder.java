@@ -59,6 +59,12 @@ public class BlobDecoder {
 	@Autowired
 	private IconRep icrep;
 	
+	@Autowired
+	private InsertionController insert;
+	
+	@Autowired
+	private IconCreator creator;
+	
 	@RequestMapping(value = "/upload/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String uploadImage(@RequestParam(value = "blob") MultipartFile blob) {
 		try {
@@ -72,10 +78,8 @@ public class BlobDecoder {
 			FileOutputStream stream = new FileOutputStream(path);
 			stream.write(bytes);
 			stream.close();
-			IconCreator creator = new IconCreator();
-			InsertionController insertionController = new InsertionController();
-			insertionController.insertFromPaths();
-			creator.createIco();
+			insert.insertFromPaths();
+			creator.threadICO();
 			return "OK";
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -33,5 +33,4 @@ public class Icon {
 	}
 	
 	public Icon() {}
-	
 }

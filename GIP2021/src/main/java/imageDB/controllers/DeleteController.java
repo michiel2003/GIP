@@ -195,8 +195,12 @@ public class DeleteController {
     	try {
 			Image todel = imageRep.getImageByUrl(url);
 			File imgFile = new File(todel.imageURL);
-			Icon icToDel = todel.icon;
+			String icoURL = imageRep.ImageIconFinder(url);
+			System.out.println(icoURL);
+			Icon icToDel = icrep.getExactIcon(icoURL);
+			System.out.println(icToDel.iconURL);
 			File icoFile = new File(icToDel.iconURL);
+			
 			imageRep.delete(todel);
 			icrep.delete(icToDel);
 			imgFile.delete();

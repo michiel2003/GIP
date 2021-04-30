@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.imageio.ImageIO;
 
@@ -34,8 +36,7 @@ public class IconCreator {
 	IconRep icrep;
 
 
-	@GetMapping("/icons/generateIcons")
-	public String createIco() {
+	private String createIco() {
 		List<String> imageURLS = new ArrayList<String>();
 		imageURLS.addAll(imgrep.findAllURL());
 		for(String url: imageURLS) {
@@ -50,9 +51,7 @@ public class IconCreator {
 				if(save == true) {
 					Icon icon = new Icon();
 					icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
-					icrep.save(icon);
 					image.icon = icon;
-					imgrep.save(image);
 					System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/"));
 					Thumbnails.of(new File(url))
 					.size(width, height).toFile(new File(Path.of(".").toRealPath() + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'))));
@@ -68,5 +67,12 @@ public class IconCreator {
 			}
 		}
 		return "done";
+	}
+	
+	Executor executor = Executors.newSingleThreadExecutor();
+	
+	@GetMapping("/thread/ico")
+	public void threadICO() {
+		executor.execute(() -> createIco());
 	}
 }

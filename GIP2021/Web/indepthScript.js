@@ -57,7 +57,6 @@ new Vue({
             axios.get("http://localhost:91/delete/image?url=" + this.url)
             .then(response => (console.log(response.data)))
             window.open("index.html")
-            window.close()
         },
         
 
