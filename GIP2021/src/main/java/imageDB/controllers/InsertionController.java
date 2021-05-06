@@ -45,6 +45,11 @@ public class InsertionController {
 		return pathrep.allFilePaths();
 	}
 
+	/**
+	 * insert all images from the paths given in the databse
+	 * 
+	 * @return void
+	 */
 	@GetMapping("/insert/fromPaths")
 	public void insertFromPaths() {
 		List<String> paths = new ArrayList<String>();
@@ -66,6 +71,13 @@ public class InsertionController {
 
 	}
 
+	/**
+	 * checks if a file is an image
+	 * 
+	 * @param filepath to check
+	 * @return true if the file is an image <br>
+	 *         false if the file is not an image
+	 */
 	private boolean CheckIfImage(String filepath) {
 		File f = new File(filepath);
 		String mimetype = new MimetypesFileTypeMap().getContentType(f);
@@ -77,15 +89,14 @@ public class InsertionController {
 		}
 	}
 
+	/**
+	 * inserting the given path into the database
+	 * 
+	 * @param FPath of the new image
+	 */
 	public void insertImageIntoDB(String FPath) {
 		Image newImage = new Image();
 		newImage.setImageURL(FPath);
 		imagerep.save(newImage);
 	}
-
-	public static void main(String[] args) {
-		InsertionController exec = new InsertionController();
-		exec.insertFromPaths();
-	}
-
 }

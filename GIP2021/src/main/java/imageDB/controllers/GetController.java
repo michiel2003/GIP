@@ -27,17 +27,17 @@ public class GetController {
 	// Adding author repository
 	@Autowired
 	private AuthorRep authrep;
-	
+
 	@Autowired
 	public IconRep icrep;
-	
-	//Get all images
-		@GetMapping(path="/get/All")
-		public Iterable<Image> index() {
-			return imageRep.findAll();
-		}
 
 	// Retrieving tags from a specific image
+	/**
+	 * Get the tag names from a specific image
+	 * 
+	 * @param The URL from which
+	 * @return Iterable tag names
+	 */
 	@GetMapping("/get/tags")
 	public Iterable<String> gettags(@RequestParam String URL) {
 		List<List<String>> a = imageRep.getTags(URL);
@@ -48,34 +48,60 @@ public class GetController {
 		return b;
 	}
 
-	// Get all image URLS
+	/**
+	 * Used to get all the url's in the databse for the icons
+	 * 
+	 * @return Iterable with all the urls
+	 */
 	@GetMapping(path = "/get/URL")
 	public Iterable<String> AllUrl() {
 		return icrep.getAllIcons();
 	}
 
-	// Get all images with a specific tag
+	/**
+	 * Used to search image by tag
+	 * 
+	 * @param s = search term
+	 * @return List with all images corresponding
+	 */
 	@GetMapping("/get/bytag")
 	public List<String> sTag(@RequestParam String s) {
 		return imageRep.ImageTagSearch(s);
 	}
 
+	/**
+	 * searches the author beloning to a specific image url
+	 * 
+	 * @param Image URL to search for author
+	 * @return String with author name
+	 */
 	@GetMapping("/get/authorByImageURL")
 	public String getAuthorByURL(@RequestParam String URL) {
 		return authrep.getAuthorOnImageURL(URL);
 	}
 
+	/**
+	 * Searches to all images form a specific author
+	 * 
+	 * @param Author to search for images
+	 * @return List with all images returned
+	 */
 	@GetMapping("/get/byAuthor")
 	public List<String> sAuthor(@RequestParam String s) {
 		return imageRep.ImageAuthorSearch(s);
 	}
-	
+
+	/**
+	 * gets all authors and their info
+	 * 
+	 * @return List within a List containing all the author info
+	 */
 	@GetMapping("/all/Authors")
-	public List<List<String>> allAuthor(){
-		List<List<String>> authorList = new ArrayList<List<String>>();  
+	public List<List<String>> allAuthor() {
+		List<List<String>> authorList = new ArrayList<List<String>>();
 		List<Author> authL = new ArrayList<Author>();
 		authL.addAll(authrep.allAuthors());
-		for(Author auth: authL) {
+		for (Author auth : authL) {
 			List<String> toAdd = new ArrayList<String>();
 			toAdd.add(auth.authorName);
 			toAdd.add(auth.phone);
@@ -85,12 +111,23 @@ public class GetController {
 		}
 		return authorList;
 	}
-	
+
+	/**
+	 * get all icon URLS from database
+	 * 
+	 * @return List of all the icon URLS
+	 */
 	@GetMapping("/icons/getIconURLS")
-	public List<String> getIconURLS(){
+	public List<String> getIconURLS() {
 		return icrep.getAllIcons();
 	}
-	
+
+	/**
+	 * get the full scale image instead of the icon
+	 * 
+	 * @param URL the url of the image
+	 * @return String the indepth image
+	 */
 	@GetMapping("/get/indepth")
 	public String getIndepthFullScaleImage(@RequestParam String url) {
 		return icrep.IndepthImageFinder(url);

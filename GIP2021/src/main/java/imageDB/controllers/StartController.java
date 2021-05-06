@@ -1,7 +1,5 @@
 package imageDB.controllers;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class StartController {
-	
+
 	@Autowired
 	DeleteController del;
 	@Autowired
@@ -38,12 +36,21 @@ public class StartController {
 	@Autowired
 	IconCreator crea;
 
+	/**
+	 * a method that executes specific commands on startup so that the database gets
+	 * cleaned before startup
+	 * 
+	 * @see insertFromPaths
+	 * @see threadICO
+	 * @see deleteImageNoLongerInFolder
+	 * @see deleteTagNoLongerConnectedToImage
+	 */
 	@GetMapping("/start/app")
 	public void boot() {
-		insert.insertFromPaths();	
+		insert.insertFromPaths();
 		crea.threadICO();
 		del.deleteImageNoLongerInFolder();
 		del.deleteTagNoLongerConnectedToImage();
 	}
-	
+
 }

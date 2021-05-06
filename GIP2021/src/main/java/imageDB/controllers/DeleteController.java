@@ -42,6 +42,13 @@ public class DeleteController {
 	private IconRep icrep;
 
 	// Delete a specific tag from a specific image
+	/**
+	 * delete a specific tag
+	 * 
+	 * @param URL   the URL of the image where the tag belongs to
+	 * @param index the index of where the tag is placed
+	 * @return
+	 */
 	@GetMapping("/delete/tag")
 	public String deleteTag(@RequestParam String URL, @RequestParam int index) {
 		Image img = imageRep.getImageByUrl(URL);
@@ -61,6 +68,14 @@ public class DeleteController {
 		return "done";
 	}
 
+	/**
+	 * deletes all images which are no longer available in the folder from the
+	 * database
+	 * 
+	 * @see compareForImageDeletion
+	 * @see getAllFromFiles
+	 * @see getAllFromDB
+	 */
 	@GetMapping("/delete/Image/NoLongerInFolder")
 	public void deleteImageNoLongerInFolder() {
 		List<String> allURLfromDB = new ArrayList<String>();
@@ -69,21 +84,9 @@ public class DeleteController {
 		allURLfromFiles.addAll(filerep.allFilePaths());
 
 		List<String> ProcessedFromDB = new ArrayList<String>();
-
+		ProcessedFromDB.addAll(getAllFromDB(allURLfromDB, ProcessedFromDB));
 		List<String> ProcessedFromFiles = new ArrayList<String>();
-
-		for (String a : allURLfromDB) {
-			int sub = a.lastIndexOf("/") + 1;
-			a = a.substring(sub);
-			ProcessedFromDB.add(a);
-		}
-		for (String b : allURLfromFiles) {
-			File file = new File(b);
-			String[] imageURLS = file.list();
-			for (String c : imageURLS) {
-				ProcessedFromFiles.add(c);
-			}
-		}
+		ProcessedFromFiles.addAll(getAllFromFiles(allURLfromFiles, ProcessedFromFiles));
 
 		List<String> compared = new ArrayList<String>();
 		compared.addAll(compareToReturnNotFound(ProcessedFromDB, ProcessedFromFiles));
@@ -91,24 +94,64 @@ public class DeleteController {
 			return;
 		}
 		for (String a : compared) {
-			Image imageToDelete = imageRep.getImageByUrl(a);
-			imageDB.IconCreator.Icon icon = new imageDB.IconCreator.Icon(
-					imageRep.ImageIconFinder(imageToDelete.imageURL));
-			System.out.println(icon.iconURL);
-			imageDB.IconCreator.Icon ExactIcon = icrep.getExactIcon(icon.iconURL);
-			System.out.println(icrep.getExactIcon(imageRep.ImageIconFinder(imageToDelete.imageURL)));
-			System.out.println(ExactIcon.iconURL);
-			File f = new File(icon.iconURL);
-			System.out.println("deleted: " + f.getAbsolutePath());
-			f.delete();
-			System.out.println("deleted: " + ExactIcon.iconURL);
-			icrep.delete(ExactIcon);
-			System.out.println("deleted: " + imageToDelete.imageURL);
-			imageRep.delete(imageToDelete);
-			System.out.println(imageToDelete.imageURL);
+			compareForImageDeletion(a);
 		}
 	}
 
+	/**
+	 * used to delete the image with give url
+	 * 
+	 * @param a where a is the url of the image to compare
+	 * @see deleteImageNoLongerInFolder
+	 */
+	private void compareForImageDeletion(String a) {
+		Image imageToDelete = imageRep.getImageByUrl(a);
+		imageDB.IconCreator.Icon icon = new imageDB.IconCreator.Icon(imageRep.ImageIconFinder(imageToDelete.imageURL));
+		imageDB.IconCreator.Icon ExactIcon = icrep.getExactIcon(icon.iconURL);
+		File f = new File(icon.iconURL);
+		f.delete();
+		icrep.delete(ExactIcon);
+		imageRep.delete(imageToDelete);
+	}
+
+	/**
+	 * gets all the urls form the file system
+	 * 
+	 * @param allURLfromFiles
+	 * @param ProcessedFromFiles
+	 * @return a list all the URLS found in the file explorer
+	 * @see deleteImageNoLongerInFolder
+	 */
+	private List<String> getAllFromFiles(List<String> allURLfromFiles, List<String> ProcessedFromFiles) {
+		for (String b : allURLfromFiles) {
+			File file = new File(b);
+			String[] imageURLS = file.list();
+			for (String c : imageURLS) {
+				ProcessedFromFiles.add(c);
+			}
+		}
+		return allURLfromFiles;
+	}
+
+	/**
+	 * gets all the urls from the databse
+	 * 
+	 * @param allURLfromDB
+	 * @param ProcessedFromDB
+	 * @return List with all the urls from the databse
+	 */
+	private List<String> getAllFromDB(List<String> allURLfromDB, List<String> ProcessedFromDB) {
+		for (String a : allURLfromDB) {
+			int sub = a.lastIndexOf("/") + 1;
+			a = a.substring(sub);
+			ProcessedFromDB.add(a);
+		}
+		return ProcessedFromDB;
+	}
+
+	/**
+	 * deletes tags which are no longer used by any image
+	 */
 	@GetMapping("/delete/tag/noLongerConnectedToImage")
 	public void deleteTagNoLongerConnectedToImage() {
 		List<String> allTagsFromDBList = new ArrayList<String>();
@@ -133,6 +176,14 @@ public class DeleteController {
 
 	}
 
+	/**
+	 * used to compare two list which each other and find the difference between the
+	 * two
+	 * 
+	 * @param compFrom used for the 1st list
+	 * @param compTo   used for the 2nd list
+	 * @return A list with the items which occur in list 1 but not in list 2
+	 */
 	public List<String> compareToReturnNotFound(List<String> compFrom, List<String> compTo) {
 		List<String> nonFound = new ArrayList<String>();
 		for (String compareFrom : compFrom) {
@@ -149,6 +200,10 @@ public class DeleteController {
 		return nonFound;
 	}
 
+	/**
+	 * delete icons which are no longer in the file explorer to avoid file not found
+	 * error
+	 */
 	@GetMapping("delete/icon/noLongerInExplorer")
 	public void iconDelete() {
 		File file = new File("DATA\\ICONS");
@@ -171,11 +226,21 @@ public class DeleteController {
 
 	Executor executor = Executors.newSingleThreadExecutor();
 
+	/**
+	 * Thread to delete the image
+	 * 
+	 * @param url of the image to delete
+	 */
 	@GetMapping("delete/image")
 	public void delIMG(@RequestParam String url) {
 		executor.execute(() -> deleteImage(url));
 	}
 
+	/**
+	 * used to delete an image with a specific url
+	 * 
+	 * @param url of the image to delete
+	 */
 	public void deleteImage(String url) {
 		System.out.println(url + " img");
 		File file = new File(url);
