@@ -12,19 +12,23 @@ new Vue({
     },
     mounted() {
         axios.get("http://localhost:91/start/app")
+        if (this.searchString == "" || this.selectedSearch == "") {
+            axios
+                .get("http://localhost:91/icons/getIconURLS")
+                .then(response => (this.urls = response.data))
+            return this.urls
+        }
     },
     methods: {
         openInedpth: function (filepath) {
             console.log("test")
             sessionStorage.setItem("url", filepath)
             sessionStorage.setItem('LastPage', "index.html")
-            open("indepth.html")
-            window.close()
+            open("indepth.html", "_self")
         },
         openAuthors: function () {
             open("authors.html")
             sessionStorage.setItem('LastPage', "authors.html")
-            window.close()
         },
         uploadImage: function (event) {
             console.log(event.target.files[0])
@@ -42,9 +46,11 @@ new Vue({
                         window.alert("the file: \"" + file.name + "\" already exists")
                     }
                 })
-        }
-    },
-    computed: {
+                setTimeout(() => {
+                    this.Search()   
+                }, 7000);
+        },
+
         Search: function () {
             if (this.searchString == "" || this.selectedSearch == "") {
                 axios
@@ -53,18 +59,17 @@ new Vue({
                 return this.urls
             }
             if (this.selectedSearch == "Tag") {
-                axios.get("http://localhost:91/get/bytag?s=" + this.searchString)
+                axios.get("http://localhost:91/image/search/tag?s=" + this.searchString)
                     .then(response => (this.urls = response.data))
                 return this.urls
             }
             if (this.selectedSearch == "Author") {
                 axios
-                    .get("http://localhost:91/get/byAuthor?s=" + this.searchString)
+                    .get("http://localhost:91/image/search/author?s=" + this.searchString)
                     .then(response => (this.urls = response.data))
                 return this.urls
             }
         }
-    }
 
+    },
 })
-

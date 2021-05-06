@@ -31,9 +31,11 @@ public class TagController {
 	 * @param String the url of the image to add the tag to
 	 * @return String "done" if completed
 	 */
-	@GetMapping("/add/tags")
+	@GetMapping("/tags/add/image")
 	public String addTags(@RequestParam String add, @RequestParam String URL) {
 		Tag tag = tagRep.findTagByName(add);
+		System.out.println(add);
+		System.out.println(URL);
 		if (tag == null) {
 			tag = new Tag(add);
 		}
@@ -56,7 +58,7 @@ public class TagController {
 	 * @param index the index of where the tag is placed
 	 * @return
 	 */
-	@GetMapping("/delete/tag")
+	@GetMapping("/tags/delete")
 	public String deleteTag(@RequestParam String URL, @RequestParam int index) {
 		Image img = imageRep.getImageByUrl(URL);
 		List<Tag> tags = new ArrayList<Tag>();
@@ -78,7 +80,6 @@ public class TagController {
 	/**
 	 * deletes tags which are no longer used by any image
 	 */
-	@GetMapping("/delete/tag/noLongerConnectedToImage")
 	public void deleteTagNoLongerConnectedToImage() {
 		List<String> allTagsFromDBList = new ArrayList<String>();
 		allTagsFromDBList.addAll(tagRep.getAllTags());
@@ -132,25 +133,14 @@ public class TagController {
 	 * @param The URL from which
 	 * @return Iterable tag names
 	 */
-	@GetMapping("/get/tags")
+	@GetMapping("/tags/get/fromImage")
 	public Iterable<String> gettags(@RequestParam String URL) {
-		List<List<String>> a = imageRep.getTags(URL);
-		List<String> b = new ArrayList<String>();
-		for (List<String> c : a) {
-			b.add(c.get(5));
+		List<List<String>> tagsFromUrl = imageRep.getTags(URL);
+		List<String> tagsNames = new ArrayList<String>();
+		for (List<String> c : tagsFromUrl) {
+			tagsNames.add(c.get(5));
 		}
-		return b;
-	}
-	
-	/**
-	 * Used to search image by tag
-	 * 
-	 * @param s = search term
-	 * @return List with all images corresponding
-	 */
-	@GetMapping("/get/bytag")
-	public List<String> sTag(@RequestParam String s) {
-		return imageRep.ImageTagSearch(s);
+		return tagsNames;
 	}
 	
 	

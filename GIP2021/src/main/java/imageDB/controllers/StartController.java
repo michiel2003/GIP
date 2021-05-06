@@ -24,6 +24,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -47,12 +49,16 @@ public class StartController {
 	 * @see deleteImageNoLongerInFolder
 	 * @see deleteTagNoLongerConnectedToImage
 	 */
+	
+	Executor executor = Executors.newSingleThreadExecutor();
+	
 	@GetMapping("/start/app")
 	public void boot() {
-		imageController.insertFromPaths();
-		iconCreator.threadICO();
 		imageController.deleteImageNoLongerInFolder();
 		tagController.deleteTagNoLongerConnectedToImage();
+		imageController.insertFromPaths();
+		iconCreator.threadICO();
+		System.out.println("done");
 	}
 
 }

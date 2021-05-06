@@ -10,7 +10,7 @@ new Vue ({
         }
     },
     mounted(){
-        axios.get("http://localhost:91/all/Authors")
+        axios.get("http://localhost:91/authors/all")
         .then(response => {
             this.authors = response.data
             console.log(this.authors)

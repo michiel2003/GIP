@@ -36,7 +36,7 @@ public class AuthorController {
 	 * 
 	 * @return List within a List containing all the author info
 	 */
-	@GetMapping("/all/Authors")
+	@GetMapping("/authors/all")
 	public List<List<String>> allAuthor() {
 		List<List<String>> authorList = new ArrayList<List<String>>();
 		List<Author> authL = new ArrayList<Author>();
@@ -53,23 +53,12 @@ public class AuthorController {
 	}
 	
 	/**
-	 * Searches to all images form a specific author
-	 * 
-	 * @param Author to search for images
-	 * @return List with all images returned
-	 */
-	@GetMapping("/get/byAuthor")
-	public List<String> sAuthor(@RequestParam String s) {
-		return imageRep.ImageAuthorSearch(s);
-	}
-	
-	/**
 	 * searches the author beloning to a specific image url
 	 * 
 	 * @param Image URL to search for author
 	 * @return String with author name
 	 */
-	@GetMapping("/get/authorByImageURL")
+	@GetMapping("/author/search/image")
 	public String getAuthorByURL(@RequestParam String URL) {
 		return authorRepository.getAuthorOnImageURL(URL);
 	}
@@ -80,7 +69,7 @@ public class AuthorController {
 	 * @param AuthName the name of the new author
 	 * @return returns the newly created author
 	 */
-	@GetMapping("/add/author")
+	@GetMapping("/author/create")
 	public Author createAuthor(@RequestParam String AuthName) {
 		Author author = new Author(AuthName);
 		authorRepository.save(author);
@@ -93,7 +82,7 @@ public class AuthorController {
 	 * @param URL        of the image to add the author to
 	 * @param authorName the name of the author to add
 	 */
-	@GetMapping("/add/AuthorToImage")
+	@GetMapping("/author/add/image")
 	public void addAuthorToImage(@RequestParam String URL, @RequestParam String authorName) {
 
 		Author auth = authorRepository.findAuthByName(authorName);

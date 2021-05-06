@@ -43,7 +43,7 @@ public class ImageController {
 	 * @param URL the url of the image
 	 * @return String the indepth image
 	 */
-	@GetMapping("/get/indepth")
+	@GetMapping("/image/get/image")
 	public String getIndepthFullScaleImage(@RequestParam String url) {
 		return icrep.IndepthImageFinder(url);
 	}
@@ -57,7 +57,6 @@ public class ImageController {
 	 * 
 	 * @return void
 	 */
-	@GetMapping("/insert/fromPaths")
 	public void insertFromPaths() {
 		List<String> paths = new ArrayList<String>();
 		paths.addAll(getPaths());
@@ -116,7 +115,6 @@ public class ImageController {
 	 * @see getAllFromFiles
 	 * @see getAllFromDB
 	 */
-	@GetMapping("/delete/Image/NoLongerInFolder")
 	public void deleteImageNoLongerInFolder() {
 		List<String> allURLfromDB = new ArrayList<String>();
 		allURLfromDB.addAll(imageRep.findAllURL());
@@ -228,7 +226,7 @@ public class ImageController {
 	 * 
 	 * @param url of the image to delete
 	 */
-	@GetMapping("delete/image")
+	@GetMapping("/image/delete/")
 	public void delIMG(@RequestParam String url) {
 		executor.execute(() -> deleteImage(url));
 	}
@@ -245,5 +243,27 @@ public class ImageController {
 		deleteImageNoLongerInFolder();
 		iconController.iconDelete();
 	}
+	
+	/**
+	 * Searches to all images form a specific author
+	 * 
+	 * @param Author to search for images
+	 * @return List with all images returned
+	 */
+	@GetMapping("/image/search/author")
+	public List<String> sAuthor(@RequestParam String s) {
+		return imageRep.ImageAuthorSearch(s);
+	}
 
+	/**
+	 * Used to search image by tag
+	 * 
+	 * @param s = search term
+	 * @return List with all images corresponding
+	 */
+	@GetMapping("/image/search/tag")
+	public List<String> sTag(@RequestParam String s) {
+		return imageRep.ImageTagSearch(s);
+	}
+	
 }

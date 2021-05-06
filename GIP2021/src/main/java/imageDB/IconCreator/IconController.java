@@ -14,16 +14,6 @@ public class IconController {
 
 	@Autowired
 	private IconRep icrep;
-
-	/**
-	 * Used to get all the url's in the databse for the icons
-	 * 
-	 * @return Iterable with all the urls
-	 */
-	@GetMapping(path = "/get/URL")
-	public Iterable<String> AllUrl() {
-		return icrep.getAllIcons();
-	}
 	
 	/**
 	 * get all icon URLS from database
@@ -39,7 +29,6 @@ public class IconController {
 	 * delete icons which are no longer in the file explorer to avoid file not found
 	 * error
 	 */
-	@GetMapping("delete/icon/noLongerInExplorer")
 	public void iconDelete() {
 		File file = new File("DATA\\ICONS");
 		String pathExplorer = file.getAbsolutePath().toString();

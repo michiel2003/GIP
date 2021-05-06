@@ -19,7 +19,6 @@ import com.mysql.cj.jdbc.Blob;
 
 import imageDB.IconCreator.IconCreator;
 import imageDB.IconCreator.IconRep;
-import imageDB.controllers.InsertionController;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
 import imageDB.image.ImageController;
