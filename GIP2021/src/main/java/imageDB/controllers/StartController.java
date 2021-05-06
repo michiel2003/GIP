@@ -11,9 +11,11 @@ import imageDB.IconCreator.IconCreator;
 import imageDB.IconCreator.IconRep;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
+import imageDB.image.ImageController;
 import imageDB.image.ImageRep;
 import imageDB.location.LocationRep;
 import imageDB.tags.Tag;
+import imageDB.tags.TagController;
 import imageDB.tags.TagRep;
 
 import java.io.File;
@@ -26,15 +28,15 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class StartController {
-
+	
 	@Autowired
-	DeleteController del;
+	IconCreator iconCreator;
+	
 	@Autowired
-	AddController add;
+	ImageController imageController;
+	
 	@Autowired
-	InsertionController insert;
-	@Autowired
-	IconCreator crea;
+	TagController tagController;
 
 	/**
 	 * a method that executes specific commands on startup so that the database gets
@@ -47,10 +49,10 @@ public class StartController {
 	 */
 	@GetMapping("/start/app")
 	public void boot() {
-		insert.insertFromPaths();
-		crea.threadICO();
-		del.deleteImageNoLongerInFolder();
-		del.deleteTagNoLongerConnectedToImage();
+		imageController.insertFromPaths();
+		iconCreator.threadICO();
+		imageController.deleteImageNoLongerInFolder();
+		tagController.deleteTagNoLongerConnectedToImage();
 	}
 
 }

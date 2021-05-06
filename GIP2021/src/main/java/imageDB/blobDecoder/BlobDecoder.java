@@ -22,6 +22,7 @@ import imageDB.IconCreator.IconRep;
 import imageDB.controllers.InsertionController;
 import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
+import imageDB.image.ImageController;
 import imageDB.image.ImageRep;
 import imageDB.location.LocationRep;
 import imageDB.tags.Tag;
@@ -46,21 +47,9 @@ import javax.swing.Icon;
 @RestController
 public class BlobDecoder {
 
-	//Adding image repository
-	@Autowired
-	private ImageRep imageRep;
 	
 	@Autowired
-	private TagRep tagRep;
-	
-	@Autowired
-	private PathRepository filerep;
-	
-	@Autowired
-	private IconRep icrep;
-	
-	@Autowired
-	private InsertionController insert;
+	private ImageController imageController;
 	
 	@Autowired
 	private IconCreator creator;
@@ -78,7 +67,7 @@ public class BlobDecoder {
 			FileOutputStream stream = new FileOutputStream(path);
 			stream.write(bytes);
 			stream.close();
-			insert.insertFromPaths();
+			imageController.insertFromPaths();
 			creator.threadICO();
 			return "OK";
 		} catch (IOException e) {

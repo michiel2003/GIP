@@ -57,6 +57,14 @@ new Vue({
             open("index.html")
             window.close()
         },
+        getAuthor: function(){
+            axios.get("http://localhost:91/get/authorByImageURL?URL=" + this.url)
+            .then(response => {
+                this.author = [""]
+                this.author.push(response.data)})
+            return this.author
+            
+        },
         
 
     },
