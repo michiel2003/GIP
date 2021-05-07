@@ -13,6 +13,7 @@ import imageDB.image.Image;
 import imageDB.image.ImageRep;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -25,13 +26,13 @@ public class AuthorController {
 
 	@Autowired
 	public IconRep icrep;
-	
+
 	@Autowired
 	public PathRepository pathrep;
-	
+
 	@Autowired
 	private AuthorRep authorRepository;
-	
+
 	/**
 	 * gets all authors and their info
 	 * 
@@ -44,17 +45,18 @@ public class AuthorController {
 		authL.addAll(authorRepository.allAuthors());
 		for (Author auth : authL) {
 			List<String> toAdd = new ArrayList<String>();
-			toAdd.add(auth.authorName);
-			toAdd.add(auth.phone);
-			toAdd.add(auth.email);
-			toAdd.add(auth.lastName);
+			toAdd.add(auth.getAuthorName());
+			toAdd.add(auth.getPhone());
+			toAdd.add(auth.getEmail());
+			toAdd.add(auth.getLastName());
+			toAdd.add(auth.getAuthorId() + "");
 			authorList.add(toAdd);
 		}
 		return authorList;
 	}
-	
+
 	/**
-	 * searches the author beloning to a specific image url
+	 * searches the author belonging to a specific image url
 	 * 
 	 * @param Image URL to search for author
 	 * @return String with author name
@@ -63,7 +65,7 @@ public class AuthorController {
 	public String getAuthorByURL(@RequestParam String URL) {
 		return authorRepository.getAuthorOnImageURL(URL);
 	}
-	
+
 	/**
 	 * create a new author
 	 * 
@@ -76,7 +78,7 @@ public class AuthorController {
 		authorRepository.save(author);
 		return author;
 	}
-	
+
 	/**
 	 * add an author to an image
 	 * 
@@ -84,25 +86,66 @@ public class AuthorController {
 	 * @param authorName the name of the author to add
 	 */
 	@GetMapping("/author/add/image")
-	public void addAuthorToImage(@RequestParam String URL, @RequestParam String authorName) {
+	public String addAuthorToImage(@RequestParam String URL, @RequestParam String authorName) {
 
 		Author auth = authorRepository.findAuthByName(authorName);
 		if (auth == null) {
-			auth = createAuthor(authorName);
+			System.out.println("ddd");
+			return authorName;
 		}
 		Image img = imageRep.getImageByUrl(URL);
 		img.author = auth;
 		imageRep.save(img);
+		return "OK";
 	}
-	
+
 	@GetMapping("author/advanced/save")
-	public void advancedAuthorSave(@RequestParam String authorName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email) {
-		Author auth = new Author(authorName, lastName, phone, email);
+	public void advancedAuthorSave(@RequestParam String authorName, @RequestParam String lastName,
+			@RequestParam String phone, @RequestParam String email, @RequestParam Integer id) {
+		Author auth = authorRepository.getAuthorById(id);
+		String[] str = {authorName, lastName, phone, email};
+		for(int i = 0; i < str.length; i++) {
+			if(str[i].equalsIgnoreCase("undefined")) {
+				str[i] = null;
+			}
+		}
+		System.out.println(auth == null);
+		if (auth == null) {
+			System.out.println("if");
+			auth = new Author(str[0], str[1], str[2], str[3]);
+			authorRepository.save(auth);
+			return;
+		}
+		System.out.println("else");
+		auth.setAuthorName(str[0]);
+		auth.setLastName(str[1]);
+		auth.setPhone(str[2]);
+		auth.setEmail(str[3]);
 		authorRepository.save(auth);
+		return;
 	}
 	
-	
-	
-	
-	
+	/**
+	 * takes an id of an author and deletes it.
+	 * The given author will only be deleted if:
+	 * it can be found, if it can not be found a <code>java.lang.NullPointerException</code> will be thrown
+	 * @param id
+	 * @throws java.lang.NullPointerException
+	 * @return String
+	 */
+	@GetMapping("author/delete")
+	public String deleteAuthor(@RequestParam Integer id) {
+		try {
+			Author auth = authorRepository.getAuthorById(id);
+			if(auth.getImages().size() != 0) {
+				return "ERRstillUsed";
+			}
+			authorRepository.delete(auth);
+			return "OK";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Arrays.toString(e.getStackTrace());
+		}
+	}
+
 }

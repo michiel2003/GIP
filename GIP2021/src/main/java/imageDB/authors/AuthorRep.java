@@ -22,6 +22,7 @@ public interface AuthorRep extends CrudRepository<Author, Integer>{
 	@Query(value = "select author_id, author_name, phone, email, last_name from authors", nativeQuery = true)
 	List<Author> allAuthors();
 	
-	//@Query(value = "select phone from authors where authors.author_name like %?1%")
+	@Query(value = "select * from authors where author_id = ?1", nativeQuery = true)
+	Author getAuthorById(@Param("id") Integer id);
 
 }

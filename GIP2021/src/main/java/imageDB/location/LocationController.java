@@ -38,6 +38,12 @@ public class LocationController {
 		imageRep.save(img);
 	}
 	
+	
+	/**
+	 * Takes a URL and finds the location connected to the image with set URL
+	 * @param URL
+	 * @return String with location corresponding to the image
+	 */
 	@GetMapping("/location/get/from/image")
 	private String getLocationFromImage(@RequestParam String URL) {
 		System.out.println(URL);

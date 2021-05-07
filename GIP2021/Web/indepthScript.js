@@ -18,7 +18,6 @@ new Vue({
 
             tags: [],
             index: 0,
-            authindex: 0,
             author:"",
             TagText:"",
             LocName:"",
@@ -26,30 +25,17 @@ new Vue({
 
             selected: "No selection",
 
-            authSelected: "",
 
             selectTF: false,
-            selectAU: false,
             AuthorText:"",
             selector:"",
-            authSelector:"",
         }
     },
     beforeMount(){
     },
     mounted() {
         axios.get("http://localhost:91/image/get/image?url=" + sessionStorage.getItem("url"))
-        .then(response => {this.url = response.data
-            console.log("http://localhost:91/tags/get/fromImage?URL=" + this.url) 
-        })
-        axios.get("http://localhost:91/tags/get/fromImage?URL=" + this.url)
-        .then(response => (this.tags = response.data))
-        axios.get("http://localhost:91/location/get/from/image?URL=" + this.url)
-        .then(response => (this.LocName = response.data))
-        axios.get("http://localhost:91/author/search/image?URL=" + this.url)
-        .then(response => (this.author = response.data))
-        axios.get("http://localhost:91/authors/all")
-        .then(response => (this.AuthorList = response.data))
+        .then(response => (this.url = response.data))
         this.update()
     },
 
@@ -66,12 +52,6 @@ new Vue({
             this.selectTF = true
             this.selected = this.tags[this.index]
         },
-        selectAuth: function () {
-            console.log(this.AuthorList.indexOf(this.authSelector))
-            this.authindex = this.AuthorList.indexOf(this.authSelector)
-            this.selectAU = true
-            this.authSelected = this.tags[this.index]
-        },
         deleteTag: function () {
             if (this.selectTF == true) {
                 axios.get("http://localhost:91/tags/delete?URL=" + this.url + "&index=" + this.index)
@@ -85,7 +65,21 @@ new Vue({
         },
 
         addAuthor: function(){
+            sessionStorage.setItem("authorClicked", this.AuthorText)
             axios.get("http://localhost:91/author/add/image?URL=" + this.url + "&authorName=" + this.AuthorText)
+            .then(response => {
+                var resp = response.data
+                console.log(resp)
+                console.log(resp != "OK")
+                if(resp != "OK"){
+                    if(window.confirm("Author with name: " + resp + " does not exist do you wish to create it")){
+                    axios.get("http://localhost:91/author/create?AuthName=" + this.AuthorText)  
+                    console.log("open")
+                    open("indepthAuthor.html", "_self")
+                    }
+                    return;
+                }
+            })
             console.log("http://localhost:91/author/add/image?URL=" + this.url + "&authorName=" + this.AuthorText)
             this.AuthorText = ""
             this.update()

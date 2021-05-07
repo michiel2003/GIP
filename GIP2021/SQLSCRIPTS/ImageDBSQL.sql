@@ -93,3 +93,7 @@ select icons.id, icons.iconurl from image join icons on icons.id = image.icons_i
 select icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
 
 select location_name from locations join image ON image.locations_location_id = locations.locationid where imageurl like 	;
+
+select * from authors where authors.author_name like "michiel" and authors.last_name like "de cap" and phone like "phone" and email like "email";
+
+select * from authors where author_id = 7;

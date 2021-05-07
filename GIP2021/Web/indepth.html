@@ -33,12 +33,8 @@
                 <span><b>Author of image: </b></span>
                 <p class="infoText">{{author}}</p>
                 <br>
+
                 <span><b>Add author to image</b></span><br>
-
-                <select @change="selectAuth" v-model="authSelector">
-                    <option v-for="Auth in AuthorList">{{Auth[0]}}</option>
-                </select>
-
                 <input v-model="AuthorText" type="text" placeholder="Author"><br>
                 <button v-on:click="addAuthor">Add author to this image</button>
                 <br><br>
