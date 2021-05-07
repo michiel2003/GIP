@@ -147,5 +147,17 @@ public class AuthorController {
 			return Arrays.toString(e.getStackTrace());
 		}
 	}
+	
+	@GetMapping("author/fix")
+	public void fixAuth(){
+		List<Author> authList = new ArrayList<Author>();
+		authList = authorRepository.allAuthors();
+		for(Author auth: authList) {
+			if(auth.getAuthorName().isBlank() && auth.getEmail() == null && auth.getLastName() == null && auth.getPhone() == null) {
+				System.out.println("yes");
+				authorRepository.delete(auth);
+			}
+		}
+	}
 
 }
