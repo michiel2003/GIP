@@ -43,5 +43,11 @@ public class Author {
 	}
 	
 	public Author() {}
-
+	
+	public Author(String authorName, String lastName, String phone, String email) {
+		this.authorName = authorName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.email = email;
+	}
 }

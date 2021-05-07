@@ -25,7 +25,7 @@ public class LocationController {
 	 * @param URL
 	 * @param LocationName
 	 */
-	@GetMapping("/add/locationToImage")
+	@GetMapping("/location/addto/image")
 	public void addLocationToImage(@RequestParam String URL, @RequestParam String LocationName) {
 
 		Location location = locrep.findLocationByName(LocationName);
@@ -36,6 +36,12 @@ public class LocationController {
 		Image img = imageRep.getImageByUrl(URL);
 		img.location = location;
 		imageRep.save(img);
+	}
+	
+	@GetMapping("/location/get/from/image")
+	private String getLocationFromImage(@RequestParam String URL) {
+		System.out.println(URL);
+		return imageRep.ImageLocationFinder(URL);
 	}
 	
 	

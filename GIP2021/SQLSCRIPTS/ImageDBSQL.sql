@@ -90,4 +90,6 @@ select image.imageurl from icons join image on icons.id = image.icons_icon_id wh
 
 select icons.id, icons.iconurl from image join icons on icons.id = image.icons_icon_id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
 
-select icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg"
+select icons.iconurl from image join icons ON image.icons_icon_id = icons.id where image.imageurl like "U:/GIP michiel 2021/GIP/GIP2021/SampleImages/2wqY7joWzIo.jpg";
+
+select location_name from locations join image ON image.locations_location_id = locations.locationid where imageurl like 	;

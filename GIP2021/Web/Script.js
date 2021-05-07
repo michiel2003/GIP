@@ -27,7 +27,7 @@ new Vue({
             open("indepth.html", "_self")
         },
         openAuthors: function () {
-            open("authors.html")
+            open("authors.html", "_self")
             sessionStorage.setItem('LastPage', "authors.html")
         },
         uploadImage: function (event) {

@@ -1,6 +1,7 @@
 package imageDB.authors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,6 +93,12 @@ public class AuthorController {
 		Image img = imageRep.getImageByUrl(URL);
 		img.author = auth;
 		imageRep.save(img);
+	}
+	
+	@GetMapping("author/advanced/save")
+	public void advancedAuthorSave(@RequestParam String authorName, @RequestParam String lastName, @RequestParam String phone, @RequestParam String email) {
+		Author auth = new Author(authorName, lastName, phone, email);
+		authorRepository.save(auth);
 	}
 	
 	

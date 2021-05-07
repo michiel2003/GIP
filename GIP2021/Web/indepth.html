@@ -18,25 +18,37 @@
             <div class="column textinfo">
                 <br>
                 <span><b>Tags:</b></span>
-                <div class="taglist">
-                    <p v-on:click="select(i)" class="tag" v-for="(tag,i) in updatetag">{{tag}}</p>
-                </div>
-                <br />
+                <br>
+                
+                
+                <select @change="select" v-model="selector" size="5">
+                    <option v-for="tag in tags">{{tag}}</option>
+                </select>
+                <br /><br>
                 <span><b>Add Tags:</b></span><br />
                 <input v-model="TagText" type="text" placeholder="new tag"/>
                 <button v-on:click="addTag()" type="button"> Add Tag</button>
                 <br />
                 <br />
-                <span><b>Selected Tag</b></span>
-                <p class="tag">{{selected}}</p>
-                <button v-on:click="deleteTag()" type="button">Delete selected tag</button>
-                <br><br>
                 <span><b>Author of image: </b></span>
-                <p class="infoText" v-for="authorname in getAuthor">{{authorname}}</p>
+                <p class="infoText">{{author}}</p>
                 <br>
                 <span><b>Add author to image</b></span><br>
+
+                <select @change="selectAuth" v-model="authSelector">
+                    <option v-for="Auth in AuthorList">{{Auth[0]}}</option>
+                </select>
+
                 <input v-model="AuthorText" type="text" placeholder="Author"><br>
                 <button v-on:click="addAuthor">Add author to this image</button>
+                <br><br>
+
+                <span><b>Location of image:</b></span><br>
+                <p class="infoText">{{LocName}}</p> 
+
+                <span><b>Add Location To Image</b></span><br>
+                <input type="text" placeholder="New Location" v-model="LocText">
+                <button v-on:click="addLocation">Submit Location</button>
                 <br><br>
                 <button v-on:click="delImage">DELETE IMAGE</button>
                 <br><br>

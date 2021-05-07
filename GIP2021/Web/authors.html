@@ -13,6 +13,7 @@
 <body>
 
     <div id="app">
+        <button type="button" v-on:click="createAuthor">create new author</button>
         <button type="button" v-on:click="closeWindow">Back to images</button>
             <div class="container">
                 <div v-on:click="indepthAuthor(i)" class="button" v-for="(author, i) in authors">

@@ -12,15 +12,18 @@
     <div id="app">
 
         <p>{{auth[0]}}</p>
+        <span><b>Firstname / Lastname</b></span><br>
         <input type="text" v-model="auth[0]">
         <input type="text" v-model="auth[3]">
-        <br>
-        <p>contact info</p>
+        <br><br>
+        <span><b>contact info</b></span><br>
+        <span><b>Phone / Email</b></span><br>
         <input type="text" v-model="auth[2]">
         <input type="text" v-model="auth[1]">
         <br>
         <br>
-        <button>save</button>
+        <button v-on:click="saveAuthor">save</button>
+        <button v-on:click="closeWindow">BACK</button>
 
     </div>
 

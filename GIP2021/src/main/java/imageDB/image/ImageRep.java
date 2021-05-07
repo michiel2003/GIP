@@ -40,5 +40,8 @@ public interface ImageRep extends CrudRepository<Image, Integer> {
 	@Query(value = "select icons.iconurl from image join icons on icons.id = image.icons_icon_id where image.imageurl like ?1", nativeQuery = true)
 	String ImagIconTypeFinder(@Param("URL") String url);
 	
+	@Query(value = "select location_name from locations join image ON image.locations_location_id = locations.locationid where imageurl like ?1 limit 1", nativeQuery = true)
+	String ImageLocationFinder(@Param("url") String url);
+	
 	
 }
