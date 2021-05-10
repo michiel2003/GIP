@@ -67,7 +67,9 @@ new Vue({
 
         upload: function(){
             document.getElementById("file-input").click();
-        }
+        },
+
+        
 
     },
 })
