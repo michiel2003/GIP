@@ -18,5 +18,11 @@ public interface IconRep extends CrudRepository<Icon, Integer>{
 	
 	@Query(value = "select image.imageurl from icons join image on icons.id = image.icons_icon_id where icons.iconurl like ?1", nativeQuery = true)
 	String IndepthImageFinder(@Param("url") String url);
+	
+	@Query(value = "select icons.iconurl from icons join image on icons.id = image.icons_icon_id join imagetag on imagetag.imageid = image.id join tags on imagetag.tagid = tags.id where tagname like %?1% ", nativeQuery = true)
+	List<String> searchByTag(@Param("tagname") String tagname);
+	
+	@Query(value = "select icons.iconurl from icons join image on icons.id = image.icons_icon_id join authors on image.authors_author_id = authors.author_id where authors.author_name like %?1%", nativeQuery = true)
+	List<String> searchByAuthor(@Param("authorname") String authorname);
 
 }

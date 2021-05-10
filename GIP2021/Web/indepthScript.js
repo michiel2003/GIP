@@ -36,6 +36,7 @@ new Vue({
     mounted() {
         axios.get("http://localhost:91/image/get/image?url=" + sessionStorage.getItem("url"))
         .then(response => (this.url = response.data))
+        console.log(this.url)
         this.update()
     },
 

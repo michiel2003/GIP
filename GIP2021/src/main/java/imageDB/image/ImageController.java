@@ -151,13 +151,17 @@ public class ImageController {
 	 * @throws java.lang.NullPointerException
 	 */
 	private void compareForImageDeletion(String a) {
-		Image imageToDelete = imageRep.getImageByUrl(a);
-		imageDB.IconCreator.Icon icon = new imageDB.IconCreator.Icon(imageRep.ImageIconFinder(imageToDelete.imageURL));
-		imageDB.IconCreator.Icon ExactIcon = icrep.getExactIcon(icon.iconURL);
-		File f = new File(icon.iconURL);
-		f.delete();
-		icrep.delete(ExactIcon);
-		imageRep.delete(imageToDelete);
+		try {
+			Image imageToDelete = imageRep.getImageByUrl(a);
+			imageDB.IconCreator.Icon icon = new imageDB.IconCreator.Icon(imageRep.ImageIconFinder(imageToDelete.imageURL));
+			imageDB.IconCreator.Icon ExactIcon = icrep.getExactIcon(icon.iconURL);
+			File f = new File(icon.iconURL);
+			f.delete();
+			icrep.delete(ExactIcon);
+			imageRep.delete(imageToDelete);
+		} catch (NullPointerException e) {
+			System.out.println("Expected error -- correct deletion");
+		}
 	}
 
 	/**
@@ -244,26 +248,8 @@ public class ImageController {
 		iconController.iconDelete();
 	}
 	
-	/**
-	 * Searches to all images form a specific author
-	 * 
-	 * @param Author to search for images
-	 * @return List with all images returned
-	 */
-	@GetMapping("/image/search/author")
-	public List<String> sAuthor(@RequestParam String s) {
-		return imageRep.ImageAuthorSearch(s);
-	}
+	
 
-	/**
-	 * Used to search image by tag
-	 * 
-	 * @param s = search term
-	 * @return List with all images corresponding
-	 */
-	@GetMapping("/image/search/tag")
-	public List<String> sTag(@RequestParam String s) {
-		return imageRep.ImageTagSearch(s);
-	}
+	
 	
 }

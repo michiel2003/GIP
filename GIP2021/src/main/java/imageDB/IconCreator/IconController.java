@@ -3,6 +3,7 @@ package imageDB.IconCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -70,6 +71,28 @@ public class IconController {
 			}
 		}
 		return nonFound;
+	}
+	
+	/**
+	 * Used to search icon by tag
+	 * 
+	 * @param s = search term
+	 * @return List with all images corresponding
+	 */
+	@GetMapping("/icon/search/tag")
+	public List<String> sTag(@RequestParam String s) {
+		return icrep.searchByTag(s);
+	}
+	
+	/**
+	 * Searches to all images form a specific author
+	 * 
+	 * @param Author to search for images
+	 * @return List with all images returned
+	 */
+	@GetMapping("/icon/search/author")
+	public List<String> sAuthor(@RequestParam String s) {
+		return icrep.searchByAuthor(s);
 	}
 	
 	
