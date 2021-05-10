@@ -16,8 +16,10 @@
             <option value="Tag">Tag</option>
             <option value="Author">Author</option>
         </select>
-        <button type="button" v-on:click="openAuthors">View Authors</button>
+        <button id="openAuth" type="button" v-on:click="openAuthors">View Authors</button>
+        <div id="upload" v-on:click="upload">Upload
         <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input">
+        </div>
         <div class="FlexBox">
             <ul class="imageList" >
                 <li class="imageListItem" v-for="url in urls">

@@ -5,12 +5,14 @@
 }
 
 .iconImage{
-    margin:3px;
+    margin:5px;
     height:200px;
     width:200px;
+    transition: all 0.5s ease-in-out;
 }
 
 .imageListItem{
+    padding: 4px;
     margin:0px;
     display:inline;
 }
@@ -19,3 +21,84 @@
     display:flex;
     flex-wrap:wrap;
 }
+
+.iconImage:hover{
+    box-shadow: 3px 3px 3px 3px #888888;
+    margin-right: 8px;
+    transform: scale(1.05);
+
+}
+
+input[type=text], select {
+    width: auto;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+#openAuth {
+    width: auto;
+    background-color: #2196F3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #upload {
+    display: inline-block;
+    width: auto;
+    background-color: #2196F3;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  input[type=file] {
+    cursor: pointer;
+      z-index: -1;
+      height: 0px;
+      width: 0px;
+    opacity: 0;
+  }
+
+  option{
+      color: black;
+      background-color: white;
+      outline: 0;
+      border: 0;
+  }
+
+  option:hover{
+      background-color: #2196F3;
+      
+  }
+
+  input:hover, select:hover{
+      background-color: lightgray;
+  }
+
+  input:focus, select:hover{
+      background-color: lightgray;
+  }
+
+  #upload, #openAuth{
+    transition: all 0.2s ease-in-out;
+  }
+
+  #upload:hover, #openAuth:hover{
+    box-shadow: 4px 2px 2px 2px #43a5f556;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: #43a5f5;
+  }
+

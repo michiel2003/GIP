@@ -14,10 +14,12 @@
     min-width: 400px;
     text-align: center;
     border: 1px solid white;
+    border-radius: 8px;
     margin-top: 10px;
     cursor: pointer;
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: all 0.2s ease-in-out;
   }
 
   .button:empty{
@@ -34,4 +36,27 @@ html body{
   padding: 0px;
   margin: 0px;
   overflow-y: auto;
+  background-color: #2196F3;
+}
+
+.button:hover{
+    transform: scale(1.02);
+}
+
+button {
+  width: auto;
+  background-color: #2196F3;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid white;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover{
+    transform: scale(1.02);
+    background-color: #43a5f5;
 }

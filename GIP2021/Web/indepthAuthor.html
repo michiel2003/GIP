@@ -3,20 +3,17 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="IndepthStyle.css">
+    <link rel="stylesheet" href="indepthAuthor.css">
     <meta charset="utf-8" />
 </head>
 
 <body>
 
     <div id="app">
-
-        <p>{{auth[0]}}</p>
         <span><b>Firstname / Lastname</b></span><br>
         <input type="text" v-model="auth[0]">
         <input type="text" v-model="auth[3]">
         <br><br>
-        <span><b>contact info</b></span><br>
         <span><b>Phone / Email</b></span><br>
         <input type="text" v-model="auth[2]">
         <input type="text" v-model="auth[1]">

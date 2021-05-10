@@ -62,7 +62,10 @@ select * from tags where tagname like "fff"
 delete from tags
 
 insert into filepath (path) values
-("E:/gip/GIP/GIP2021/SampleImages")
+("E:/gip/GIP/GIP2021/SampleImages");
+
+insert into filepath (path) values
+("U:/GIP 2021 working/GIP/GIP2021/SampleImages")
 
 delete from filepath where id = 2;
 

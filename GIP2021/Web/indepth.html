@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -8,6 +9,7 @@
     <meta charset="utf-8" />
     <title></title>
 </head>
+
 <body>
 
     <div id="app">
@@ -19,17 +21,17 @@
                 <br>
                 <span><b>Tags:</b></span>
                 <br>
-                
-                
+
+
                 <select @change="select" v-model="selector" size="5">
                     <option v-for="tag in tags">{{tag}}</option>
                 </select>
-                <br /><br>
+                <br><br>
                 <span><b>Add Tags:</b></span><br />
-                <input v-model="TagText" type="text" placeholder="new tag"/>
+                <input v-model="TagText" type="text" placeholder="new tag" /><br>
                 <button v-on:click="addTag()" type="button"> Add Tag</button>
-                <br />
-                <br />
+                <br>
+                <br>
                 <span><b>Author of image: </b></span>
                 <p class="infoText">{{author}}</p>
                 <br>
@@ -39,15 +41,15 @@
                 <button v-on:click="addAuthor">Add author to this image</button>
                 <br><br>
 
-                <span><b>Location of image:</b></span><br>
-                <p class="infoText">{{LocName}}</p> 
-
+                <span><b>Location of image:</b></span>
+                <p class="infoText">{{LocName}}</p>
+                <br>
                 <span><b>Add Location To Image</b></span><br>
-                <input type="text" placeholder="New Location" v-model="LocText">
+                <input type="text" placeholder="New Location" v-model="LocText"><br>
                 <button v-on:click="addLocation">Submit Location</button>
-                <br><br>
+                <br>
                 <button v-on:click="delImage">DELETE IMAGE</button>
-                <br><br>
+                <br>
                 <button v-on:click="closeWindow">Back</button>
             </div>
 
@@ -57,4 +59,5 @@
 
     <script src="indepthScript.js"></script>
 </body>
+
 </html>

@@ -69,6 +69,10 @@ new Vue({
                     .then(response => (this.urls = response.data))
                 return this.urls
             }
+        },
+
+        upload: function(){
+            document.getElementById("file-input").click();
         }
 
     },
