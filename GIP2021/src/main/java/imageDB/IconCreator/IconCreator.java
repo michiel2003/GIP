@@ -49,14 +49,7 @@ public class IconCreator {
 					}
 				}
 				if(save == true) {
-					Icon icon = new Icon();
-					icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
-					image.icon = icon;
-					System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/"));
-					Thumbnails.of(new File(url))
-					.size(width, height).toFile(new File(Path.of(".").toRealPath() + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'))));
-					System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/')));
-					icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
+					Icon icon = resizeImageToIco(url, image);
 					icrep.save(icon);
 					image.icon = icon;
 					imgrep.save(image);
@@ -67,6 +60,18 @@ public class IconCreator {
 			}
 		}
 		return "done";
+	}
+
+	private Icon resizeImageToIco(String url, Image image) throws IOException {
+		Icon icon = new Icon();
+		icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
+		image.icon = icon;
+		System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/"));
+		Thumbnails.of(new File(url))
+		.size(width, height).toFile(new File(Path.of(".").toRealPath() + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'))));
+		System.out.println(Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/')));
+		icon.iconURL = Path.of(".").toRealPath().toString().replaceAll("\\\\", "/") + "/DATA/ICONS" + url.substring(url.lastIndexOf('/'));
+		return icon;
 	}
 	
 	Executor executor = Executors.newSingleThreadExecutor();
