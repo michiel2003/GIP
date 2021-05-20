@@ -37,3 +37,5 @@ If you already have the application downloaded skip to **installation process**
 6. Open [index file](GIP2021/Web/index.html)
 
 if you followed all the steps above correctly the program should be fully functioning
+
+refer to [manual.docx](MANUAL.docx) for info on how to use the web interface
