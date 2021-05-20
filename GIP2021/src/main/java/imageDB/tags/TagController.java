@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import imageDB.IconCreator.IconRep;
-import imageDB.filePaths.PathRepository;
 import imageDB.image.Image;
 import imageDB.image.ImageRep;
 import java.util.ArrayList;

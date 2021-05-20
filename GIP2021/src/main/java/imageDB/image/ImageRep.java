@@ -7,8 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import imageDB.IconCreator.Icon;
-
 @Repository
 public interface ImageRep extends CrudRepository<Image, Integer> {
 

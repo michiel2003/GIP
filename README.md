@@ -7,7 +7,7 @@
 | Downloads | 
 | ----------- |
 | [DBeaver](https://dbeaver.io/download/) |
-| [Eclipse](https://www.eclipse.org/downloads/packages/) |
+| [Eclipse](https://www.eclipse.org/downloads/packages/ ) |
 | [XAMPP](https://www.apachefriends.org/index.html) |
 
 If you already have the application downloaded skip to **installation process**

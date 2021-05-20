@@ -1,7 +1,6 @@
 package imageDB.authors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,6 +98,14 @@ public class AuthorController {
 		return "OK";
 	}
 
+	/**
+	 * used to save a new author
+	 * @param authorName
+	 * @param lastName
+	 * @param phone
+	 * @param email
+	 * @param id
+	 */
 	@GetMapping("author/advanced/save")
 	public void advancedAuthorSave(@RequestParam String authorName, @RequestParam String lastName,
 			@RequestParam String phone, @RequestParam String email, @RequestParam Integer id) {
@@ -148,6 +155,9 @@ public class AuthorController {
 		}
 	}
 	
+	/**
+	 * removes empty authors
+	 */
 	@GetMapping("author/fix")
 	public void fixAuth(){
 		List<Author> authList = new ArrayList<Author>();
