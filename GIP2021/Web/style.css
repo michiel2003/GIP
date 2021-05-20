@@ -8,7 +8,7 @@
     margin:5px;
     height:200px;
     width:200px;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .imageListItem{
@@ -24,7 +24,6 @@
 
 .iconImage:hover{
     box-shadow: 3px 3px 3px 3px #888888;
-    margin-right: 8px;
     transform: scale(1.05);
 
 }

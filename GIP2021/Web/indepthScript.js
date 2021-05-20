@@ -36,6 +36,7 @@ new Vue({
     mounted() {
         axios.get("http://localhost:91/image/get/image?url=" + sessionStorage.getItem("url"))
         .then(response => (this.url = response.data))
+        console.log(this.url)
         this.update()
     },
 
@@ -115,7 +116,27 @@ new Vue({
         getLocation: function(){
             axios.get("http://localhost:91/location/get/from/image?URL=" + this.url)
             .then(response => (this.LocName = response.data))
-        }
+        },
+
+        download: function (urlget) {
+            axios({
+                url: "http://localhost:91/download?url=" + this.url,
+                method: 'GET',
+                responseType: 'blob'
+            })
+                .then((response) => {
+                    const url = window.URL
+                        .createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'image.jpg');
+                    document.body.appendChild(link);
+                    link.click()
+                    console.log(url)
+                    link.remove 
+                })
+                .catch(error => console.log('Authorization failed : ' + error.message));
+        },
         
 
     },

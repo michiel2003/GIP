@@ -100,3 +100,7 @@ select location_name from locations join image ON image.locations_location_id = 
 select * from authors where authors.author_name like "michiel" and authors.last_name like "de cap" and phone like "phone" and email like "email";
 
 select * from authors where author_id = 7;
+
+select icons.iconurl from icons join image on icons.id = image.icons_icon_id join imagetag on imagetag.imageid = image.id join tags on imagetag.tagid = tags.id where tagname = "ee"; 
+
+select icons.iconurl from icons join image on icons.id = image.icons_icon_id join authors on image.authors_author_id = authors.author_id where authors.author_name like ;
